@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState} from 'react'
+import { toast } from "react-hot-toast";
 
 
 
@@ -16,10 +17,16 @@ export const StateContext =({children}) => {
     }
   ]);
 
+  const onAdd= (product)=> {
+    setProjectItems([...projectItems, {...product}])
+    toast.success('Success! New project added to the list');
+  }
+
 return (
   <Context.Provider value={{
     projectItems, 
-    setProjectItems
+    setProjectItems,
+    onAdd
   }}
   >
     {children}
