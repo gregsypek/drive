@@ -1,0 +1,33 @@
+nav {
+	border-bottom: 1px solid silver;
+}
+
+nav ul {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+nav ul li {
+	list-style-type: none;
+}
+
+#icon {
+	display: flex;
+	width: 20vw;
+	align-items: center;
+}
+
+#icon p {
+	padding: 0 10px;
+	font-size: 20px;
+	color: grey;
+}
+
+.opacity {
+	opacity: 0.6;
+}
+
+a {
+	text-decoration: none;
+}

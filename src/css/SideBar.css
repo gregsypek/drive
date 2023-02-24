@@ -1,0 +1,86 @@
+#sideBar {
+  height: calc(100vh - 115px);
+  width: 320px;
+  padding: 20px 10px;
+
+}
+
+#linkBtn {
+  background-color: transparent;
+  width: 140px;
+  display: flex;
+  border: none;
+  align-items: center;
+  cursor: pointer;
+  height: 50px;
+  border-radius: 30px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  justify-content: center;
+}
+
+/* #linkBtn img {
+  height: 30px;
+} */
+
+#linkBtn p {
+  color: black;
+  font-size: 15px;
+  padding: 10px;
+}
+
+#linkBtn:hover {
+  transition: 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+#sideBarOpt {
+  margin: 15px 0px;
+  margin-left: -10px;
+
+}
+
+.sideBarOptions {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+
+
+.sideBarOptions:hover {
+  transition: 0.3s;
+  background-color: whitesmoke;
+}
+
+.sideBarOptions img {
+  height: 20px;
+  padding: 0 5px;
+}
+.sideBarOptions img:first-of-type {
+  padding: 0 15px;
+}
+/* three-dots icon */
+.sideBarOptions img:last-of-type {
+  margin-left: auto;
+}
+.sideBarOptions img:last-of-type:hover {
+  opacity: 1;
+}
+
+.sideBarOptions h3 {
+  color: #503e3e;
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.activeSideOpt {
+  background-color: rgb(227, 239, 255);
+}
+
+.activeSideOpt h3 {
+  color: blue;
+  font-weight: bold;
+}
+
