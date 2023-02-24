@@ -83,4 +83,7 @@
   color: blue;
   font-weight: bold;
 }
-
+.empty-list {
+  text-align: center;
+  padding: 10px;
+}
