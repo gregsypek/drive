@@ -16,17 +16,27 @@ export const StateContext =({children}) => {
       name: 'Project 2',      
     }
   ]);
+  
 
-  const onAdd= (product)=> {
-    setProjectItems([...projectItems, {...product}])
+
+  const onAdd= (project)=> {
+    setProjectItems([...projectItems, {...project}])
     toast.success('Success! New project added to the list');
   }
+
+  const onRemove = (id) => {
+		const newProjects = projectItems.filter((item) => item.id !== id);	
+		setProjectItems(newProjects);
+	};
+
 
 return (
   <Context.Provider value={{
     projectItems, 
     setProjectItems,
-    onAdd
+    onAdd,
+    onRemove
+
   }}
   >
     {children}
