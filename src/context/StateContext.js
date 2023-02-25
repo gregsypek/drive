@@ -28,6 +28,10 @@ export const StateContext =({children}) => {
 		const newProjects = projectItems.filter((item) => item.id !== id);	
 		setProjectItems(newProjects);
 	};
+  // const onUpdate = (project) => {
+  //   console.log("🚀 ~ file: StateContext.js:32 ~ onUpdate ~ project:", project)     
+  //   console.log('update me!!!!!!!')
+  // }
 
 
 return (
@@ -35,7 +39,7 @@ return (
     projectItems, 
     setProjectItems,
     onAdd,
-    onRemove
+    onRemove,
 
   }}
   >
