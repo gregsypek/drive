@@ -1,12 +1,13 @@
 import React from "react";
 import "../css/DisplayContainer.css";
-import file from "../pics/blue-file.png";
+import folder from "../pics/folder.png";
 
 
-export default function DisplayCard() {
+export default function DisplayCard({name}) {
   return (
     <div className="displayCard">
-    <img src={file} alt="file" className="opacity" />
+    <img src={folder} alt="file" className="opacity" />
+    <h2 className="opacity">{name}</h2>
     
     </div>
   );

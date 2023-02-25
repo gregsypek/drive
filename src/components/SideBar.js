@@ -12,10 +12,9 @@ import { Dropdown } from "antd";
 import { useStateContext } from "../context/StateContext";
 
 export default function SideBar() {
-	const { projectItems, setProjectItems, onAdd, onRemove } =
-		useStateContext();
+	const { projectItems, setProjectItems, onAdd, onRemove } = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [isModalRenameVisible, setisModalRenameVisible] = useState(false);
+	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
 	const [uploadedProjectName, setUploadedProjectName] = useState("");
 	const [activeProjectId, setActiveProjectId] = useState(null);
@@ -25,38 +24,50 @@ export default function SideBar() {
 		setIsModalVisible(true);
 	};
 	const showModalRename = () => {
-		setisModalRenameVisible(true);
+		setIsModalRenameVisible(true);
 	};
 	const handleModalAddCancel = () => {
 		setIsModalVisible(false);
 	};
 	const handleModalRenameCancel = () => {
-		setisModalRenameVisible(false);
+		setIsModalRenameVisible(false);
 	};
 	// let foundProject;
 
 	const projectAddUpload = () => {
-		onAdd({ id: projectItems.length + 1, name: newProjectName });
-		setIsModalVisible(false);
-		// clean input
-		setNewProjectName("");
+
+		if (newProjectName.length > 0) {
+			onAdd({ id: projectItems.length + 1, name: newProjectName });
+			setIsModalVisible(false);
+			// clean input
+			setNewProjectName("");
+		} else {
+			toast.error("Project Name must have at least one character!");
+			setIsModalVisible(false);
+			return;
+		}
 	};
 	const projectRenameUpload = () => {
 		// console.log("uploadedProjectName", uploadedProjectName);
 		// console.log("foundProject here", foundProject);
-		setProjectItems((prevProjectItems) => {
-			return prevProjectItems.map((item) => {
-				if (item.id === foundProject.id) {
-					return { ...item, name: uploadedProjectName };
-				}
-				return item;
-			});
-			
-		});
-		setisModalRenameVisible(false);
-		setUploadedProjectName("")
-		toast.success('Project has been uploaded!');
 
+		if (uploadedProjectName.length > 0) {
+			setProjectItems((prevProjectItems) => {
+				return prevProjectItems.map((item) => {
+					if (item.id === foundProject.id) {
+						return { ...item, name: uploadedProjectName };
+					}
+					return item;
+				});
+			});
+			setIsModalRenameVisible(false);
+			setUploadedProjectName("");
+			toast.success("Project has been uploaded!");
+		} else {
+			toast.error("Project Name must have at least one character!");
+			setIsModalRenameVisible(false);
+			return;
+		}
 	};
 
 	const onClick = ({ key }) => {
@@ -64,7 +75,7 @@ export default function SideBar() {
 
 		if (key === "1") {
 			onRemove(activeProjectId);
-			toast.success('Project has been deleted successfully');
+			toast.success("Project has been deleted successfully");
 		}
 		if (key === "2") {
 			showModalRename();

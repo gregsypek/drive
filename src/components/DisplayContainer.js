@@ -1,8 +1,10 @@
 import React from "react";
 import "../css/DisplayContainer.css";
 import DisplayCard from "./DisplayCard";
+import { useStateContext } from "../context/StateContext";
 
 export default function DisplayContainer() {
+  const { projectItems} = useStateContext();
   return (
     <>
       <div id="displayCont">
@@ -12,15 +14,17 @@ export default function DisplayContainer() {
         </div>
 
         <div id="contentDisplayer">
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
-          <DisplayCard />
+        {
+          projectItems.length ? (
+            projectItems.map(({name})=>(
+              <DisplayCard name={name}/>
+            ))
+          ) : (
+            <h3>NO FOLDER FOR THIS PROJECT!</h3>
+          )
+        }
+          
+       
         
         </div>
       </div>
