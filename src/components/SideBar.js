@@ -6,12 +6,18 @@ import "../css/SideBar.css";
 import { toast } from "react-hot-toast";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
+import {useNavigate} from 'react-router-dom'
+
 
 // import {toast} from 'react-hot-toast';
 
 import { useStateContext } from "../context/StateContext";
 
 export default function SideBar() {
+	let navigate = useNavigate();
+  const openFolder = (id)=>{
+    navigate(`/folder/${id}`)
+  }
 	const { projectItems, setProjectItems, onAdd, onRemove } = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
@@ -108,7 +114,7 @@ export default function SideBar() {
 				<div id="sideBarOpt">
 					{projectItems.length ? (
 						projectItems.map(({ name, id }) => (
-							<div className="sideBarOptions" key={id}>
+							<div className="sideBarOptions" key={id} onClick={()=>openFolder(id)}>
 								<img src={folder} alt="folder" className="opacity" />
 								<h3>{name}</h3>
 								<Dropdown

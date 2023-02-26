@@ -2,14 +2,43 @@ import React, {createContext, useContext, useState} from 'react'
 import { toast } from "react-hot-toast";
 
 
-
 const Context = createContext();
 
 export const StateContext =({children}) => {
   const [projectItems, setProjectItems] = useState([
     {
       id: 1, 
-      name: 'Project 1',      
+      name: 'Project 1', 
+      folders: [
+        {
+          id:11,
+          name: 'folder 1',
+          folders: [
+            {
+              id:111,
+              name: 'nowy',
+              folders: [
+                {
+                  id:1111,
+                  name: 'prawie ostatni'  
+                },
+                {
+                  id:1112,
+                  name: 'ostatni'  
+                },
+              ]    
+            },
+            {
+              id:121,
+              name: 'pliki'  
+            },
+          ]  
+        },
+        {
+          id:12,
+          name: 'folder 2'  
+        },
+      ]
     },
     {
       id: 2, 
@@ -28,10 +57,25 @@ export const StateContext =({children}) => {
 		const newProjects = projectItems.filter((item) => item.id !== id);	
 		setProjectItems(newProjects);
 	};
-  // const onUpdate = (project) => {
-  //   console.log("🚀 ~ file: StateContext.js:32 ~ onUpdate ~ project:", project)     
-  //   console.log('update me!!!!!!!')
+
+  // const findFolders = (id) => {
+
+  //   const project = projectItems.find(project=> project.id === id);
+  //   console.log('proj',project)
+  
+  //   if (project?.folders) return project.folders
+  //   else return []
   // }
+
+  const findFoldersById = (array,id)=>{
+    for(const item of array) {
+      if(item.id === id )return item;
+      if(item.folders?.length) {
+        const innerResult = findFoldersById(item.folders, id);
+        if(innerResult) return innerResult;
+      }
+    }
+  }
 
 
 return (
@@ -40,6 +84,7 @@ return (
     setProjectItems,
     onAdd,
     onRemove,
+    findFoldersById
 
   }}
   >
