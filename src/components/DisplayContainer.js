@@ -5,29 +5,25 @@ import { useStateContext } from "../context/StateContext";
 
 export default function DisplayContainer() {
   const { projectItems} = useStateContext();
-  return (
-    <>
-      <div id="displayCont">
-        <div id="displayInfoNav">
-          <p>Heading</p>
 
-        </div>
+
+  return (
+    <>   
 
         <div id="contentDisplayer">
         {
           projectItems.length ? (
-            projectItems.map(({name})=>(
-              <DisplayCard name={name}/>
+            projectItems.map((project)=>(
+              <DisplayCard project={project} key={project.id} />
             ))
           ) : (
-            <h3>NO FOLDER FOR THIS PROJECT!</h3>
+            <h3 >NO FOLDERS FOR THIS PROJECT!</h3>
           )
-        }
-          
+        }       
        
         
         </div>
-      </div>
+    
     </>
   );
 }

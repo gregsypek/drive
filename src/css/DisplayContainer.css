@@ -1,5 +1,6 @@
 #displayCont {
   width: 100%;
+  height: 80px;
 }
 
 #displayInfoNav {
@@ -20,6 +21,9 @@
   height: calc(100vh - 130px);
   overflow-y: scroll;
 }
+#contentDisplayer h3 {
+padding: 10px;
+}
 
 .displayCard {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
@@ -28,7 +32,7 @@
   /* height: 220px; */
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   width: 220px;
   margin: 10px;
   padding:  15px;
