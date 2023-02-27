@@ -39,6 +39,7 @@ export const StateContext = ({ children }) => {
          
 				},
 			],
+      files: ['photo.png']
 		},
 		{
 			id: 2,
@@ -48,7 +49,8 @@ export const StateContext = ({ children }) => {
           id:21,
           name: 'folder do projektu 2'
         }
-      ]
+      ],
+      files: ['document.pdf']
 		},
 	]);
   const [folders, setFolders] = useState([])
