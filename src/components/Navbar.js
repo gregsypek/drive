@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../css/Navbar.css";
 
 export default function Navbar() {
@@ -7,11 +8,11 @@ export default function Navbar() {
       <nav>
         <ul>
           <li>
-            <a href='/'>
+            <Link to='/'>
               <div id="icon">
                 <p>Drive</p>
               </div>
-            </a>
+            </Link>
           </li>
 
         </ul>

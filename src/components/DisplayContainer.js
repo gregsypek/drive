@@ -14,7 +14,9 @@ export default function DisplayContainer() {
         {
           projectItems.length ? (
             projectItems.map((project)=>(
+              Object.keys(project).length ? 
               <DisplayCard project={project} key={project.id} />
+              : ''
             ))
           ) : (
             <h3 >NO FOLDERS FOR THIS PROJECT!</h3>

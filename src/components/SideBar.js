@@ -113,10 +113,11 @@ export default function SideBar() {
 
 				<div id="sideBarOpt">
 					{projectItems.length ? (
-						projectItems.map(({ name, id }) => (
-							<div className="sideBarOptions" key={id} onClick={()=>openFolder(id)}>
+						projectItems.map((project) => (
+							Object.keys(project).length ? 
+							<div className="sideBarOptions" key={project.id} onClick={()=>openFolder(project.id)}>
 								<img src={folder} alt="folder" className="opacity" />
-								<h3>{name}</h3>
+								<h3>{project.name}</h3>
 								<Dropdown
 									menu={{
 										items,
@@ -127,10 +128,11 @@ export default function SideBar() {
 										src={dots}
 										alt="dots"
 										className="opacity"
-										onClick={() => setActiveProjectId(id)}
+										onClick={() => setActiveProjectId(project.id)}
 									/>
 								</Dropdown>
 							</div>
+							:''
 						))
 					) : (
 						<p className="empty-list">
