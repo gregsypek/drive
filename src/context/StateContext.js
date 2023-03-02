@@ -1,63 +1,84 @@
 import React, { createContext, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { nanoid } from 'nanoid'
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
 	const [projectItems, setProjectItems] = useState([
 		{
-			id: 1,
+			id: nanoid(),
 			name: "Project 1",
 			folders: [
 				{
-					id: 11,
+					id: nanoid(),
 					name: "folder 1",
 					folders: [
 						{
-							id: 111,
+							id: nanoid(),
 							name: "nowy",
 							folders: [
 								{
-									id: 1111,
+									id: nanoid(),
 									name: "prawie ostatni",
+									folders:[]
 								},
 								{
-									id: 1112,
+									id: nanoid(),
 									name: "ostatni",
+									folders:[]
 								},
 							],
 						},
 						{
-							id: 112,
+							id: nanoid(),
 							name: "pliki",
+							folders:[]
 						},
 					],
 				},
 				{
-					id: 12,
+					id: nanoid(),
 					name: "folder 2",
-         
+					folders:[]         
 				},
 			],
       files: ['photo.png']
 		},
 		{
-			id: 2,
+			id: nanoid(),
 			name: "Project 2",
       folders: [
         {
-          id:21,
-          name: 'folder do projektu 2'
+          id: nanoid(),
+          name: 'folder do projektu 2',
+					folders:[]
         }
       ],
       files: ['document.pdf']
 		},
 	]);
   const [folders, setFolders] = useState([])
+	const [newFolder, setNewFolder] = useState({})
 
 	const onAdd = (project) => {
 		setProjectItems([...projectItems, { ...project }]);
 		toast.success("Success! New project added to the list");
+	};
+	const onAddFolder = (newObj) => {
+		// setProjectItems([...projectItems, { ...newObj }]);
+		console.log('newobj',newObj, folders)
+	
+		// if(newObj){
+		// 	setFolders((prevState)=> ([
+		// 		...prevState, newObj
+		// 	]))
+		
+
+		// }
+
+
+		// toast.success("Success! New folder added to the list");
 	};
 
 	const onRemove = (id) => {
@@ -83,6 +104,42 @@ export const StateContext = ({ children }) => {
 		return dataObj;
 	};
 
+
+	const onUpdateByArray = (dataObj, currentArray, newObj ) => {
+	console.log('data+',dataObj)
+		for (const i in dataObj) {
+			if (!dataObj.hasOwnProperty(i)) continue;		
+			if (dataObj[i].hasOwnProperty('folders') && dataObj[i].folders.length > 0) {
+				// console.log("hehheh", dataObj[i].folders);			
+					onUpdateByArray(dataObj[i].folders, currentArray)	
+				// console.log('Object.keys(dataObj[i].folders',Object.keys(dataObj[i].folders))
+					if(Object.keys(dataObj[i].folders).every(
+						key => currentArray.hasOwnProperty(key) && 
+						currentArray[key] === dataObj[i].folders[key]
+					)){
+				
+						console.log('znalazlem',dataObj[i].folders)
+					
+				// console.log('   hh   ',[...dataObj[i].folders, newObj])
+				// dataObj[i].folders = [...dataObj[i].folders, newObj]
+
+				const data =  dataObj[i]?.folders ? dataObj[i].folders :dataObj[i] 
+				dataObj[i].folders = [...data, newObj]
+						// dataObj[i]['folders'] = newFolder;
+						// dataObj[i].folders:  [...dataObj[i].folders, newObj]
+					}
+					// console.log('dataObj', dataObj)
+
+				}
+				if (dataObj[i].hasOwnProperty('folders') && dataObj[i].folders.length === 0 && dataObj[i].folders.id === currentArray.id) {
+					console.log('pusty folders',dataObj[i] )
+					console.log('new obj',newObj )
+					// dataObj[i].folders = dataObj[i].folders.push(newObj)
+				}
+			}
+			return dataObj;
+		}
+
 	// const findFolders = (id) => {
 	//   const project = projectItems.find(project=> project.id === id);
 	//   console.log('proj',project)
@@ -91,13 +148,17 @@ export const StateContext = ({ children }) => {
 	// }
 
 	const findFoldersById = (array, id) => {
+		// console.log('findFoldersById',array)
+
 		for (const item of array) {
-			if (item.id === id) return item;
-			if (item.folders?.length) {
+			if (item?.id === id) return item;
+			if (item?.folders?.length) {
 				const innerResult = findFoldersById(item.folders, id);
+				// console.log('inn',innerResult)
 				if (innerResult) return innerResult;
 			}
 		}
+
 	};
 
 	return (
@@ -106,11 +167,15 @@ export const StateContext = ({ children }) => {
 				projectItems,
 				setProjectItems,
 				onAdd,
+				onAddFolder,
 				onRemove,
 				findFoldersById,
 				onRemoveByObject,
+				onUpdateByArray,
         folders,
-        setFolders
+        setFolders,
+				newFolder,
+				setNewFolder
 			}}
 		>
 			{children}

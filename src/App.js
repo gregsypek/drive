@@ -3,11 +3,11 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import SideBar from "./components/SideBar";
-import DisplayContainer from "./components/DisplayContainer";
-import ContentNav from "./components/ContentNav";
+import DisplayProjects from "./components/DisplayProjects";
+// import ContentNav from "./components/ContentNav";
 import { StateContext } from "./context/StateContext";
 import "./App.css";
-import Folder from "./components/Folder";
+import DisplayFolders from "./components/DisplayFolders";
 
 function App() {
 	return (
@@ -19,10 +19,11 @@ function App() {
 					<div id="wrapper">
 						<SideBar />
 						<div id="content-wrapper">
-							<ContentNav />
+							{/* <ContentNav /> */}
+							
 							<Routes>
-								<Route path="/" element={<DisplayContainer />} />
-								<Route path="/folder/:id" element={<Folder />} />
+								<Route path="/" element={<DisplayProjects />} />
+								<Route path="/folder/:id" element={<DisplayFolders />} />
 							</Routes>
 						</div>				
 					</div>

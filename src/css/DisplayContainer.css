@@ -1,31 +1,38 @@
-#displayCont {
+#displayNav {
   width: 100%;
   height: 80px;
-}
-
-#displayInfoNav {
   display: flex;
   align-items: center;
   padding:  10px;
 }
 
-#displayInfoNav p {
+
+#displayNav p {
   font-size: 20px;
   width: 90%;
+}
+#displayNav img {
+  height: 20px;
+  cursor: pointer
+}
+#displayNav img:hover {
+opacity: 1;
 }
 
 #contentDisplayer {
   display: flex;
   flex-wrap: wrap;
   align-items: start;
-  height: calc(100vh - 130px);
-  overflow-y: scroll;
+  /* height: calc(100vh - 130px); */
+  overflow-y: scroll;  
+
 }
+
 #contentDisplayer h3 {
 padding: 10px;
 }
 
-.displayCard {
+#displayCard {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
     border-radius:5px;
@@ -36,18 +43,25 @@ padding: 10px;
   width: 220px;
   margin: 10px;
   padding:  15px;
+  
+
+ 
 }
-.displayCard:hover {
+#displayCard:hover  {
   transition: 0.3s;
   background-color: whitesmoke;
   cursor: pointer;
+  /* position: sticky;
+  z-index:99; */
+
 }
-.displayCard h2 {
+
+#displayCard h2 {
   margin-left: 10px;
   font-weight: bold;
   font-size: 18px;
 }
 
-.displayCard img {
+#displayCard img {
   height: 20px;
 }

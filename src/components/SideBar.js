@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import {useNavigate} from 'react-router-dom'
+import { nanoid } from "nanoid";
 
 
 // import {toast} from 'react-hot-toast';
@@ -43,7 +44,7 @@ export default function SideBar() {
 	const projectAddUpload = () => {
 
 		if (newProjectName.length > 0) {
-			onAdd({ id: projectItems.length + 1, name: newProjectName });
+			onAdd({ id: nanoid(), name: newProjectName });
 			setIsModalVisible(false);
 			// clean input
 			setNewProjectName("");

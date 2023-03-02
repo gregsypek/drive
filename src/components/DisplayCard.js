@@ -20,9 +20,12 @@ export default function DisplayCard({ project }) {
 
 		if (key === "1") {	
 			const deleted = projectItems.map(obj=> onRemoveByObject(obj, activeProject))	
-	
+
+
 			setProjectItems(deleted)
-			// setFolders(deleted) 
+	
+
+	
      
 			toast.success(`${id}Folder has been deleted successfully`);
 		}
@@ -68,7 +71,7 @@ export default function DisplayCard({ project }) {
 			onClick={(e) => e.preventDefault()}
 		>
 			<div
-				className="displayCard"
+				id="displayCard"
 				onClick={() => openFolder(id)}
 				style={{
 					color: colorTextTertiary,
