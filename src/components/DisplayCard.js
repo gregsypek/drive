@@ -22,10 +22,7 @@ export default function DisplayCard({ project }) {
 			const deleted = projectItems.map(obj=> onRemoveByObject(obj, activeProject))	
 
 
-			setProjectItems(deleted)
-	
-
-	
+			setProjectItems(deleted)	
      
 			toast.success(`${id}Folder has been deleted successfully`);
 		}

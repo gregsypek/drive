@@ -1,0 +1,70 @@
+[
+  {
+      "id": "ZfvGriNxqyXBR8j65067w",
+      "name": "Project 1",
+      "folders": [
+          {
+              "id": "WyY9HoL2IPxDC88iGUW-_",
+              "name": "folder 1",
+              "folders": [
+                  {
+                      "id": "F_L7osG_XusMgNu8NEGva",
+                      "name": "nowy",
+                      "folders": [
+                          {
+                              "id": "BRm-Uvcvd0bEdEjYT8zZX",
+                              "name": "prawie ostatni",
+                              "folders": [],
+                              "depth": 3
+                          },
+                          {
+                              "id": "GgnmLHBa9Xe5FM4Vt5eBX",
+                              "name": "ostatni",
+                              "folders": [],
+                              "depth": 3
+                          }
+                      ],
+                      "depth": 2
+                  },
+                  {
+                      "id": "6pcAvw_KarrejU41rIOdP",
+                      "name": "pliki",
+                      "folders": []
+                  }
+              ],
+              "depth": 1
+          },
+          {
+              "id": "jAFGkKPfHnGA5oRSoU6-h",
+              "name": "folder 2",
+              "folders": []
+          }
+      ],
+      "files": [
+          "photo.png"
+      ],
+      "depth": 0
+  },
+  {
+      "id": "LPoYb54K_WW0czqIvm0i1",
+      "name": "Project 2",
+      "folders": [
+          {
+              "id": "9BAmPr35jaq0JfQt8yJcS",
+              "name": "folder do projektu 2",
+              "folders": [
+                {
+                  
+                    "id": "6pcdvw_KairejU41rIOdP",
+                    "name": "22",
+                    "folders": []
+                
+                }
+              ]
+          }
+      ],
+      "files": [
+          "document.pdf"
+      ]
+  }
+]

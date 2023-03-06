@@ -25,11 +25,13 @@ const FolderNav = () => {
 		onAddFolder,
 		onRemove,
 		onUpdateByArray,
+		setParamId
 	} = useStateContext();
 	const [newFolderName, setNewFolderName] = useState("");
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [uploadedProjectName, setUploadedProjectName] = useState("");
+
 	const showModalAdd = () => {
 		setIsModalVisible(true);
 	};
@@ -40,9 +42,9 @@ const FolderNav = () => {
 	const folderAddUpload = () => {
 		if (newFolderName.length > 0) {
 			// const activeArray = findFoldersById(projectItems, Number(id)).folders  ;
-
+			setParamId(id)
 			// [{id: 11, name: 'folder 1', folders: Array(2)},{}]
-			const activeArray = findFoldersById(projectItems, id)?.folders;
+			const activeArray = findFoldersById(projectItems, id);
 
 			console.log(
 				"🚀 ~ file: FolderNav.js:33 ~ folderAddUpload ~ activeArray:",
@@ -64,12 +66,14 @@ const FolderNav = () => {
 				newFolderObject
 			);
 
-			const dd = onUpdateByArray(projectItems, activeArray, newFolderObject);
+			// const dd = onUpdateByArray(projectItems, activeArray, newFolderObject);
 
-			console.log("dd", dd);
+			// console.log("dd", dd);
 
-			setProjectItems(() => [...dd]);
-			console.log("projectItems", projectItems);
+			// setProjectItems(() => [...dd]);
+		onUpdateByArray(projectItems, activeArray, newFolderObject);
+			// setProjectItems(onUpdateByArray(projectItems, activeArray, newFolderObject));
+			// console.log("projectItems", projectItems);
 
 			setIsModalVisible(false);
 			setNewFolderName("");

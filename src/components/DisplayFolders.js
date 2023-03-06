@@ -11,11 +11,12 @@ const Folder = () => {
 	const { projectItems, findFoldersById, folders,setProjectItems, setFolders } =
 		useStateContext();
 	// const [folders, setFolders] = useState([])
+
 	const { id } = useParams();
 
 	useEffect(() => {
-		setFolders(findFoldersById(projectItems, id)?.folders);
-		console.log('useef', folders)
+		setFolders(findFoldersById(projectItems, id));
+		console.log('folders in DisplayFolders', folders)
 		console.log('findFoldersById(projectItems, id)',findFoldersById(projectItems, id))
 	}, [findFoldersById, id, setProjectItems, projectItems,folders ,setFolders]);
 
@@ -36,10 +37,10 @@ const Folder = () => {
 		<>
 			<FolderNav />
 			<div id="contentDisplayer">
-				<p>{console.log('aha',folders)}</p>
-				<p>{console.log('projectItems',projectItems)}</p>
-				{folders && folders.length ? (
-					folders.map((folder) =>
+				<p>{console.log('aha',folders?.folders)}</p>
+		
+				{folders?.folders && folders.folders.length ? (
+					folders.folders.map((folder) =>
 						Object.keys(folder).length ? (
 							<DisplayCard project={folder} key={folder.id} />
 						) : (
