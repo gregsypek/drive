@@ -21,7 +21,11 @@ export const StateContext = ({ children }) => {
 								{
 									id: nanoid(),
 									name: "prawie ostatni",
-									folders: [],
+									folders: [	{
+										id: nanoid(),
+										name: "naprawdę ostatni",
+										folders: [],
+									},],
 								},
 								{
 									id: nanoid(),
