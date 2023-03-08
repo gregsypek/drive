@@ -1,4 +1,4 @@
-#sideBar {
+#sideList {
   height: calc(100vh - 115px);
   width: 320px;
   padding: 20px 10px;
@@ -35,13 +35,13 @@
     rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
-#sideBarOpt {
+#sideListOpt {
   margin: 15px 0px;
   margin-left: -10px;
 
 }
 
-.sideBarOptions {
+.sideListOptions {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -49,27 +49,27 @@
 }
 
 
-.sideBarOptions:hover {
+.sideListOptions:hover {
   transition: 0.3s;
   background-color: whitesmoke;
 }
 
-.sideBarOptions img {
+.sideListOptions img {
   height: 20px;
   padding: 0 5px;
 }
-.sideBarOptions img:first-of-type {
+.sideListOptions img:first-of-type {
   padding: 0 15px;
 }
 /* three-dots icon */
-.sideBarOptions img:last-of-type {
+.sideListOptions img:last-of-type {
   margin-left: auto;
 }
-.sideBarOptions img:last-of-type:hover {
+.sideListOptions img:last-of-type:hover {
   opacity: 1;
 }
 
-.sideBarOptions h3 {
+.sideListOptions h3 {
   color: #503e3e;
   font-size: 14px;
   padding: 0 10px;

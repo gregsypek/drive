@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import SideBar from "./components/SideBar";
+import SideList from "./components/SideList";
 import DisplayContainer from "./components/DisplayContainer";
 import {StateContext} from './context/StateContext'
 import "./App.css";
@@ -11,7 +11,7 @@ function App() {
 
       <Navbar />
       <div id="wrapper">
-        <SideBar />
+        <SideList />
         <DisplayContainer />
       </div>
     </StateContext>
