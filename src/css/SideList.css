@@ -1,6 +1,6 @@
 #sideList {
   height: calc(100vh - 115px);
-  width: 320px;
+  width: 420px;
   padding: 20px 10px;
 
 }
@@ -37,7 +37,15 @@
 
 #sideListOpt {
   margin: 15px 0px;
-  margin-left: -10px;
+  padding: 35px ;
+
+}
+#sideListOpt li.folder {
+  list-style-image: url('../pics/folder.svg');
+
+}
+#sideListOpt li.file {
+  list-style-image: url('../pics/file.svg');
 
 }
 

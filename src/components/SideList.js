@@ -7,7 +7,8 @@ import "../css/SideList.css";
 import { useStateContext } from "../context/StateContext";
 
 export default function SideList() {
-	const { projectItems } = useStateContext();
+	const { items, setItems } = useStateContext();
+	console.log("🚀 ~ file: SideList.js:11 ~ SideList ~ items:", items)
 
 	return (
 		<>
@@ -15,22 +16,11 @@ export default function SideList() {
 				<button id="linkBtn">
 					<p>New</p>
 				</button>
-				{console.log(projectItems)}
-
-				<div id="sideListOpt">
-					{/* {projectItems.length
-						? projectItems.map(({name}) => (
-								<div className="sideListOptions">
-									<img src={folder} alt="folder" className="opacity" />
-									<h3>{name}</h3>
-									<img src={dots} alt="dots" className="opacity" />
-								</div>
-						  ))
-						: (
-              <p className="empty-list">You have no projects. Please add new one</p>
-            )} */}
-
-				
+				<div id="sideListOpt">	
+						<ul>						
+							{items.map((item) => (<li className={item.type === 'project' ? 'folder' : 'file'} key={item.id}>{item.itemText}</li>))}		
+						</ul>	
+					
 				</div>
 			</div>
 		</>

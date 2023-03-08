@@ -1,0 +1,40 @@
+{
+	"projects": [
+		{
+			"id": "6bdda2bf-4dc1-43f2-aa05-ccd8de177673",
+			"name": "Zarządzanie nieruchomością v1",
+			"address": null,
+			"investor": "Solve-Net"
+		},
+		{
+			"id": "49b32705-fe3e-4ae5-8204-92838b8df97e",
+			"name": "Przegląd budowlany 5 letni 2005",
+			"address": "Skarżyńskiego 5, 31-866 Kraków",
+			"investor": "WARBUD"
+		},
+		{
+			"id": "c50da16d-cfc7-4d69-9175-ee73ba349f9d",
+			"name": "Przegląd budowlany roczny 2023",
+			"address": "Skarżyńskiego 5, 31-866 Kraków",
+			"investor": "WARBUD"
+		},
+		{
+			"id": "e61b4a05-dac4--87ea-d8b97a13c8ab",
+			"name": "Osiedle Zielone Etap 1",
+			"address": "Skarżyńskiego 5, 31-866 Kraków",
+			"investor": "BUDIMEX"
+		},
+		{
+			"id": "e61b4a05-dac4-4de4-87ea-d8b97a13c8ab",
+			"name": "Osiedle Zielone Etap 3",
+			"address": "Skarżyńskiego 5, 31-866 Kraków",
+			"investor": "BUDIMEX"
+		},
+		{
+			"id": "0e9c2d9f-c803-42c7-a6c2-d8fdae41fe49",
+			"name": "Hala magazynowa C",
+			"address": null,
+			"investor": null
+		}
+	]
+}
