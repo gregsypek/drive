@@ -1,6 +1,6 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Tree } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/SideBar.css";
 import folder from "../pics/folder.png";
 import dots from "../pics/three-dots.png";
@@ -12,6 +12,8 @@ import { useStateContext } from "../context/StateContext";
 import { toast } from "react-hot-toast";
 import { nanoid } from "nanoid";
 import { Modal, Input } from "antd";
+import createChildrensTree from "../utils/createChildrensTree";
+import assignDepth from "../utils/assignDepth";
 
 // THIS IS  HOW TREE SHOULD LOOK LIKE
 const initTreeData3 = [
@@ -60,11 +62,11 @@ const initTreeData3 = [
 				id: "010",
 				children: [
 					{
-							title: "22",
-							key: "0-1-0-0",
-							id: "c0qafIpvolM_xT60QdPqs"
-					}
-			]
+						title: "22",
+						key: "0-1-0-0",
+						id: "c0qafIpvolM_xT60QdPqs",
+					},
+				],
 			},
 		],
 	},
@@ -160,94 +162,78 @@ const SideBar = () => {
 		}
 	};
 
+	// console.log("🚀 ~ file: SideBar.js:133 ~ SideBar ~ deeps:", deeps);
 
-	const createChildrens = (obj, key) => {
-		console.log("🚀 ~ file: SideBar.js:165 ~ createChildrens ~ key:", key)
-		console.log("🚀 ~ file: SideBar.js:181 ~ createChildrens ~ obj:", obj);
-		// obj -> {id: 'TJgnsnkSdxWAhufunwr2h', name: 'Project 1', folders: Array(2), files: Array(1), depth: 0}
-		// children-> 0{title: 'folder 1', key: '0-0-0', id: 'NzqYrzOzYPcE9cCw2h0ud', children: Array(1)}
-		if (!obj.folders) return;
+	// console.log("childrens", createChildrensTree(projectItems[0], 1));
 
-		let children = [];
-		if (obj.folders.length > 0) {
-			let keyCode = `${key}-${'0'.repeat(obj.detph)}`;
-			// let keyCode = `0-`.repeat(key + 2);
+	const initTreeData5 = (arr = projectItems) => {
+		let deeps = arr.map((project) => [project]);
+		deeps = deeps
+			.map((arr) => {
+				assignDepth(arr);
+				return arr;
+			})
+			.flat();
 
-			children = obj.folders.map((child, index) => {
-				console.log("🚀 ~ file: SideBar.js:154 ~ children ~ child:", child);
+		deeps = deeps.map((project, index) => {
+			if (!project.folders) {
+				return project;
+			} else {
+				// const children = createChildrensTree(project, project.depth);
+				const children = createChildrensTree(project, `0-${index}`);
+				console.log(
+					"🚀 ~ file: SideBar.js:221 ~ initTreeData5 ~ children:",
+					children
+				);
 
 				return {
-					title: child.name,
-					key: `${keyCode}${index}`,
-					id: child.id,
-					...(children  && {
-						children: createChildrens(child, keyCode),
-						// children: createChildrens(child, child.depth),
+					title: project.name,
+					key: `0-${index}`,
+					id: project.id,
+					...(children && {
+						children,
 					}),
 				};
-			});
-		
-				return children;
-			
-		}
-		return;
-	};
-
-	// add depth as nesting level for making proper key value
-
-	const assignDepth = (arr, depth = 0, index = 0) => {
-		if (index < arr.length) {
-			arr[index].depth = depth;
-			if (arr[index].folders.length) {
-				return assignDepth(arr[index].folders, depth + 1, 0);
 			}
-			return assignDepth(arr, depth, index + 1);
-		}
-		return;
+		});
+		return deeps;
 	};
-
-	let deeps = projectItems.map((project) => [project]);
-	deeps = deeps
-		.map((arr) => {
-			assignDepth(arr);
-			return arr;
-		})
-		.flat();
-
-	console.log("🚀 ~ file: SideBar.js:133 ~ SideBar ~ deeps:", deeps);
-
-	console.log("childrens", createChildrens(projectItems[0], 1));
-
-	const initTreeData5 = deeps.map((project, index) => {
-		if (!project.folders) {
-			return project;
-		} else {
-			// const children = createChildrens(project, project.depth);
-			const children = createChildrens(project, `0-${index}`);
-			console.log(
-				"🚀 ~ file: SideBar.js:221 ~ initTreeData5 ~ children:",
-				children
-			);
-
-			return {
-				title: project.name,
-				key: `0-${index}`,
-				id: project.id,
-				...(children && {
-					children,
-				}),
-			};
-		}
-	});
 	console.log(
-		"🚀 ~ file: SideBar.js:233 ~ initTreeData5 ~ initTreeData5:",
-		JSON.stringify(initTreeData5,undefined, 4)
+		"🚀 ~ file: SideBar.js:173 ~ initTreeData5 ~ initTreeData5:",
+		initTreeData5()
 	);
+
+	// const initTreeData5 = deeps.map((project, index) => {
+	// 	if (!project.folders) {
+	// 		return project;
+	// 	} else {
+	// 		// const children = createChildrensTree(project, project.depth);
+	// 		const children = createChildrensTree(project, `0-${index}`);
+	// 		console.log(
+	// 			"🚀 ~ file: SideBar.js:221 ~ initTreeData5 ~ children:",
+	// 			children
+	// 		);
+
+	// 		return {
+	// 			title: project.name,
+	// 			key: `0-${index}`,
+	// 			id: project.id,
+	// 			...(children && {
+	// 				children,
+	// 			}),
+	// 		};
+	// 	}
+	// });
+
+	// console.log(
+	// 	"🚀 ~ file: SideBar.js:233 ~ initTreeData5 ~ initTreeData5:",
+	// 	JSON.stringify(initTreeData5,undefined, 4)
+	// );
 
 	const createTreeData = (arr, index = 0) => {
 		// sprawdz czy istnieje object w tablicy
 		if (index < arr.length) {
-			const children = createChildrens(arr[index], arr[index].depth);
+			const children = createChildrensTree(arr[index], arr[index].depth);
 			console.log(
 				"🚀 ~ file: SideBar.js:172 ~ createTreeData ~ children:",
 				children
@@ -266,22 +252,22 @@ const SideBar = () => {
 		return;
 	};
 
-	console.log(
-		"🚀 ~ file: SideBar.js:169 ~ createTreeData ~ createTreeData:",
-		createTreeData(deeps[0].folders)
-	);
-
-
-
-
+	// console.log(
+	// 	"🚀 ~ file: SideBar.js:169 ~ createTreeData ~ createTreeData:",
+	// 	createTreeData(deeps[0].folders)
+	// );
 
 	// const [treeData, setTreeData] = useState(initTreeData5);
-	const [treeData, setTreeData] = useState(initTreeData5);
+	const [treeData, setTreeData] = useState(initTreeData5());
 
 	const onSelect = (selectedKeys, info) => {
 		console.log("selected", selectedKeys, info);
 		navigate(`/folder/${info.node.id}`);
 	};
+
+	useEffect(() => {
+		setTreeData(initTreeData5());
+	}, [projectItems, onAdd, onRemove]);
 
 	return (
 		<>
