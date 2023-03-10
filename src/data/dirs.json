@@ -1,34 +1,34 @@
 {
     "dirs": [
-    {
-        "id": "60ff6aeb-3491-49bd-92ee-9100ecf6f8ce",
-        "parentDirId": null,
-        "name": "Osiedle Zielone",
-        "description":  "Folder dot. kompleksu budowy zespołu budynkow na Osiedlu Zielonym w Krakowie"
-    },
-    {
-        "id": "6affab85-552e-49ec-90cd-78bc65d2ffa1",
-        "parentDirId": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
-        "name": "Archiwum",
-        "description":  "Tutaj trzymamy projekty archiwalne starsze niż 5 lat"
-    },
-    {
-        "id": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
-        "parentDirId": null,
-        "name": "Administracja nieruchomościami",
-        "description":  null
-    },
-    {
-        "id": "d1576a0e-fbdc-416e-a6f7-2c3a294646b2",
-        "parentDirId": null,
-        "name": "Pusty folder testowo 1",
-        "description":  null
-    },
-    {
-        "id": "edafeb16-bc43-414c-b1e5-2c706cd5e1c2",
-        "parentDirId": "6affab85-552e-49ec-90cd-78bc65d2ffa1",
-        "name": "Archiwum 2004",
-        "description":  null
-    }
-]
+        {
+            "id": "60ff6aeb-3491-49bd-92ee-9100ecf6f8ce",
+            "parentDirId": null,
+            "name": "Osiedle Zielone",
+            "description":  "Folder dot. kompleksu budowy zespołu budynkow na Osiedlu Zielonym w Krakowie"
+        },
+        {
+            "id": "6affab85-552e-49ec-90cd-78bc65d2ffa1",
+            "parentDirId": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
+            "name": "Archiwum",
+            "description":  "Tutaj trzymamy projekty archiwalne starsze niż 5 lat"
+        },
+        {
+            "id": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
+            "parentDirId": null,
+            "name": "Administracja nieruchomościami",
+            "description":  null
+        },
+        {
+            "id": "d1576a0e-fbdc-416e-a6f7-2c3a294646b2",
+            "parentDirId": null,
+            "name": "Pusty folder testowo 1",
+            "description":  null
+        },
+        {
+            "id": "edafeb16-bc43-414c-b1e5-2c706cd5e1c2",
+            "parentDirId": "6affab85-552e-49ec-90cd-78bc65d2ffa1",
+            "name": "Archiwum 2004",
+            "description":  null
+        }
+    ]
 }

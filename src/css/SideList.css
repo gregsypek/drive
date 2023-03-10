@@ -40,11 +40,18 @@
   padding: 35px ;
 
 }
+#sideListOpt li {
+  padding-block: 0.5em;
+}
+#sideListOpt li:hover {
+  cursor:pointer;
+  background-color: whitesmoke;
+}
 #sideListOpt li.folder {
   list-style-image: url('../pics/folder.svg');
 
 }
-#sideListOpt li.file {
+#sideListOpt li.project {
   list-style-image: url('../pics/file.svg');
 
 }
