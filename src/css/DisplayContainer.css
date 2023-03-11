@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   padding:  10px;
+  height: 80px;
 }
 
 #displayInfoNav p {
@@ -17,21 +18,40 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  height: calc(100vh - 130px);
+  /* height: calc(100vh - 130px); */
   overflow-y: scroll;
 }
 
-.displayCard {
+#displayCard {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  height: 220px;
+    border-radius:5px;
+  /* height: 220px; */
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 220px;
+  justify-content: flex-start;
+  /* width: 220px; */
   margin: 10px;
+  padding:  15px;
+  
+
+ 
+}
+#displayCard:hover  {
+  transition: 0.3s;
+  background-color: whitesmoke;
+  cursor: pointer;
+  /* position: sticky;
+  z-index:99; */
+
 }
 
-.displayCard img {
-  height: 80px;
+#displayCard h2 {
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#displayCard img {
+  height: 20px;
 }
