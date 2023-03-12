@@ -1,0 +1,74 @@
+[
+  {
+      "id": "60ff6aeb-3491-49bd-92ee-9100ecf6f8ce",
+      "type": "folder",
+      "itemText": "Osiedle Zielone",
+      "folderId": null,
+      "level": [
+          {
+              "id": "e61b4a05-dac4-4de4-87ea-d8b97a13c8ab",
+              "type": "project",
+              "itemText": "Osiedle Zielone Etap 1",
+              "folderId": "60ff6aeb-3491-49bd-92ee-9100ecf6f8ce"
+          },
+          {
+              "id": "e61b4a05-dac4-4de4-87ea-d8b97a13c8ab",
+              "type": "project",
+              "itemText": "Osiedle Zielone Etap 3",
+              "folderId": "60ff6aeb-3491-49bd-92ee-9100ecf6f8ce"
+          }
+      ]
+  },
+  {
+      "id": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
+      "type": "folder",
+      "itemText": "Administracja nieruchomościami",
+      "folderId": null,
+      "level": [
+          {
+              "id": "6affab85-552e-49ec-90cd-78bc65d2ffa1",
+              "type": "folder",
+              "itemText": "Archiwum",
+              "folderId": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a",
+              "level": [
+                  {
+                      "id": "edafeb16-bc43-414c-b1e5-2c706cd5e1c2",
+                      "type": "folder",
+                      "itemText": "Archiwum 2004",
+                      "folderId": "6affab85-552e-49ec-90cd-78bc65d2ffa1"
+                  },
+                  {
+                      "id": "49b32705-fe3e-4ae5-8204-92838b8df97e",
+                      "type": "project",
+                      "itemText": "Przegląd budowlany 5 letni 2005",
+                      "folderId": "6affab85-552e-49ec-90cd-78bc65d2ffa1"
+                  }
+              ]
+          },
+          {
+              "id": "c50da16d-cfc7-4d69-9175-ee73ba349f9d",
+              "type": "project",
+              "itemText": "Przegląd budowlany roczny 2023",
+              "folderId": "8e3df6c2-eed5-4a34-9f52-bcffc2df7e2a"
+          }
+      ]
+  },
+  {
+      "id": "d1576a0e-fbdc-416e-a6f7-2c3a294646b2",
+      "type": "folder",
+      "itemText": "Pusty folder testowo 1",
+      "folderId": null
+  },
+  {
+      "id": "6bdda2bf-4dc1-43f2-aa05-ccd8de177673",
+      "type": "project",
+      "itemText": "Zarządzanie nieruchomością v1",
+      "folderId": null
+  },
+  {
+      "id": "0e9c2d9f-c803-42c7-a6c2-d8fdae41fe49",
+      "type": "project",
+      "itemText": "Hala magazynowa C",
+      "folderId": null
+  }
+]

@@ -29,19 +29,11 @@ export const StateContext = ({ children }) => {
 
 	const displayDirs = (id) => {
 		filterDirs = dirs.filter((item) => item.folderId === id);
-		// console.log(
-		// 	"🚀 ~ file: StateContext.js:31 ~ filterCurrentDisplayItems ~ filterDirs:",
-		// 	filterDirs
-		// );
 		return filterDirs;
 	};
 
 	const displayProjects = (id) => {
 		filterProjects = projects.filter((item) => item.folderId === id);
-		// console.log(
-		// 	"🚀 ~ file: StateContext.js:36 ~ filterCurrentDisplayItems ~ filterProjects:",
-		// 	filterProjects
-		// );
 		return filterProjects;
 	};
 
@@ -53,13 +45,14 @@ export const StateContext = ({ children }) => {
 		setFilteredItems([...filterDirs, ...filterProjects]);
 	};
 
-	const createSideList = (id) => {
-		displayDirs(id);
-		displayProjects(id);
 
-		console.log("filteredItems", [...filterDirs, ...filterProjects]);
-		setSideList([...filterDirs, ...filterProjects]);
-	};
+	// const createSideList = (id) => {
+	// 	displayDirs(id);
+	// 	displayProjects(id);
+
+	// 	console.log("filteredItems", [...filterDirs, ...filterProjects]);
+	// 	setSideList([...filterDirs, ...filterProjects]);
+	// };
 
 	const sortAndFilter = (arr) => {
 		const sorted = arr.sort((a, b) => {
@@ -82,9 +75,9 @@ export const StateContext = ({ children }) => {
 				setFilteredItems,
 				currentFolderId,
 				setCurrentFolderId,
-				sortAndFilter,
-				createSideList,
+				sortAndFilter,				
 				sideList,
+				setSideList
 			}}
 		>
 			{children}

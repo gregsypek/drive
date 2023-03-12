@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import React, { useEffect, useState } from "react";
 import "../css/SideList.css";
 // import {toast} from 'react-hot-toast';
@@ -10,11 +9,10 @@ import ListItem from "./ListItem";
 export default function SideList() {
 	const {
 		filterCurrentDisplayItems,
-		filteredItems,
 		currentFolderId,
 		setCurrentFolderId,
-		sortAndFilter,
-		createSideList,
+		items,
+		setSideList,
 		sideList,
 	} = useStateContext();
 	// const [showSubList, setShowSubList] = useState(false);
@@ -29,32 +27,35 @@ export default function SideList() {
 			setCurrentFolderId(id);
 			filterCurrentDisplayItems(currentFolderId);
 		}
-		// if (filteredItems.length) {
-		// 	const subList = `
+	};
+	const findChildren = (id) => {
+		return items.filter((item) => item.folderId === id);
+	};
 
-		// 		<ul>
-		// 			{	filteredItems.map((item, index) => (
-		// 					<li
-		// 						onClick={() => handleClick(item.type, item.id)}
-		// 						className={item.type === "folder" ? "folder" : "project"}
-		// 						key={index}
-		// 					>
-		// 						{item.itemText}
-		// 					</li>
-		// 				)) }
-		// 			</ul>
-		// 			`;
+	const createLevel = (arr) => {
+		arr.map((obj, index) => {
+			if (findChildren(obj.id).length) {
+				obj["level"] = findChildren(obj.id);
+				return createLevel(obj["level"]);
+			}
+			return obj;
+		});
+		return arr;
+	};
 
-		// 	console.log(
-		// 		"🚀 ~ file: SideList.js:45 ~ handleClick ~ subList:",
-		// 		subList
-		// 	);
-		// }
-		// setShowSubList(true);
+
+	const createSideList = (items) => {
+		let filterDirs;
+		filterDirs = items.filter((item) => item.folderId === null);
+
+		createLevel(filterDirs);
+
+		// console.log('fillllll',JSON.stringify(filterDirs, undefined, 4))
+		setSideList(filterDirs);
 	};
 
 	useEffect(() => {
-		createSideList(currentFolderId);
+		createSideList(items);
 	}, []);
 
 	return (
@@ -63,24 +64,91 @@ export default function SideList() {
 				<button id="linkBtn">
 					<p>New</p>
 				</button>
-				<div id="sideListOpt">
-					<ul>
-						{sortAndFilter(sideList).map((item, index) => {
-							if (item.id === currentFolderId)
-								return (
-									<>
-										<ListItem item={item} />
 
+				<div id="sideListOpt">
+					<ul className="tree">
+						{sideList.map((item, index) => (
+							<li>
+								<details>
+									<summary>{item.itemText}</summary>
+
+									{item?.level && (
 										<ul>
-											{filteredItems.map((item, index) => (
-												<ListItem item={item} />
+											{item.level.map((obj) => (
+												<li>
+													<details>
+														<summary>{obj.itemText}</summary>
+														{obj?.level && (
+															<ul>
+																{obj.level.map((obj2) => (
+																	<li>{obj2.itemText}</li>
+																))}
+															</ul>
+														)}
+													</details>
+												</li>
 											))}
 										</ul>
-									</>
-								);
-							return <ListItem item={item} />;
-						})}
+									)}
+								</details>
+							</li>
+						))}
+						{/* VERSION WITHOUT DETAILS */}
+						{/* {sideList.map((item, index) => (
+							<li>
+								{item.itemText}*
+								{item?.level && (
+									<ul>
+										{item.level.map((obj) => (
+											<li>
+												{obj.itemText}**
+												{obj?.level && (
+													<ul>
+														{obj.level.map((obj2) => (
+															<li>{obj2.itemText}***</li>
+														))}
+													</ul>
+												)}
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						))} */}
 					</ul>
+					{/* VERSION CLEAN HTML */}
+					{/* <ul className="tree">
+						<li>
+							<details>
+								<summary>Osiedle Zielone</summary>
+								<ul>
+									<li>Osiedle Zielone Etap 1</li>
+									<li>Osiedle Zielone Etap 2</li>
+								</ul>
+							</details>
+						</li>
+						<li>
+							<details>
+								<summary>Administracja nieruchomosciami</summary>
+								<ul>
+									<li>
+										<details>
+											<summary>Archiwum</summary>
+											<ul>
+												<li>Archiwum 2004</li>
+												<li>Przegląd budowlany 5 letni</li>
+											</ul>
+										</details>
+									</li>
+									<li>Przeglad budowlany roczny 2023</li>
+								</ul>
+							</details>
+						</li>
+
+						<li>Pusty Folder testowo 1</li>
+						<li>Zarzadzanie nieruchomoscią v1</li>
+						<li>Hala magazynowa C</li>
+					</ul> */}
 				</div>
 			</div>
 		</>

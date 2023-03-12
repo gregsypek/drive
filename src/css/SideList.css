@@ -40,12 +40,18 @@
   padding: 35px ;
 
 }
+ul > li {
+  margin-left: 20px;
+}
+ul {
+  list-style: none;
+}
 #sideListOpt li {
   padding-block: 0.5em;
 }
 #sideListOpt li:hover {
   cursor:pointer;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
 }
 #sideListOpt li.folder {
   list-style-image: url('../pics/folder.svg');
