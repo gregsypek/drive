@@ -9,10 +9,10 @@ import ListItem from "./ListItem";
 
 export default function SideList() {
 	const {
-		items,
+		allItems,
 		setSideList,
 		sideList,
-		setItems,
+		setAllItems,
 		setProjects,
 		setDirs,
 	} = useStateContext();
@@ -27,7 +27,7 @@ export default function SideList() {
 	};
 
 	const findChildren = (id) => {
-		return items.filter((item) => item.folderId === id);
+		return allItems.filter((item) => item.folderId === id);
 	};
 
 	const createLevel = (arr) => {
@@ -41,18 +41,18 @@ export default function SideList() {
 		return arr;
 	};
 
-	const createSideList = (items) => {
+	const createSideList = (allItems) => {
 		let filterDirs;
-		filterDirs = items.filter((item) => item.folderId === null);
+		filterDirs = allItems.filter((item) => item.folderId === null);
 
 		createLevel(filterDirs);
 
 		setSideList(filterDirs);
 	};
 	const onAdd = (project) => {
-		// console.log("🚀 ~ file: SideList.js:66 ~ onAdd ~ project:", project);
+		console.log("🚀 ~ file: SideList.js:66 ~ onAdd ~ project:", project);
 		// for sideList update
-		setItems([...items, { ...project }]);
+		setAllItems([...allItems, { ...project }]);
 		// for displayContainer update
 		if (project.type === "project")
 			setProjects((prevState) => [...prevState, project]);
@@ -97,8 +97,8 @@ export default function SideList() {
 	};
 
 	useEffect(() => {
-		createSideList(items);
-	}, [items]);
+		createSideList(allItems);
+	}, [allItems]);
 
 	return (
 		<>

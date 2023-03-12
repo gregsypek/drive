@@ -24,7 +24,7 @@ export const StateContext = ({ children }) => {
 		folderId: project.folderId,
 	})))
 
-	const [items, setItems] = useState([...dirs, ...projects]);
+	const [allItems, setAllItems] = useState([...dirs, ...projects]);
 
 	// "6affab85-552e-49ec-90cd-78bc65d2ffa1"
 
@@ -51,7 +51,7 @@ export const StateContext = ({ children }) => {
 	const onAdd = (project) => {
 		dataDirs.dirs.push(JSON.stringify(project, null, 4))
 		// fs.writeFileSync('dirs.json', JSON.stringify(project, null, 4))
-		setItems([...items, { ...project }]);
+		setAllItems([...allItems, { ...project }]);
 
 		// console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items)
 		
@@ -74,8 +74,8 @@ export const StateContext = ({ children }) => {
 	return (
 		<Context.Provider
 			value={{
-				items,
-				setItems,
+				allItems,
+				setAllItems,
 				filterCurrentDisplayItems,
 				filteredItems,
 				setFilteredItems,
