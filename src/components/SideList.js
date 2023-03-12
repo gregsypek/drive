@@ -5,12 +5,10 @@ import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
 import { useStateContext } from "../context/StateContext";
+import ListItem from "./ListItem";
 
 export default function SideList() {
 	const {
-		filterCurrentDisplayItems,
-		currentFolderId,
-		setCurrentFolderId,
 		items,
 		setSideList,
 		sideList,
@@ -28,15 +26,6 @@ export default function SideList() {
 		setValue(e.target.value);
 	};
 
-	const handleClick = (type, id) => {
-		console.log("🚀 ~ file: SideList.js:41 ~ handleClick ~ id222:", id);
-		// console.log("🚀 ~ file: SideList.js:41 ~ handleClick ~ type222:", type)
-
-		if (type === "folder") {
-			setCurrentFolderId(id);
-			filterCurrentDisplayItems(currentFolderId);
-		}
-	};
 	const findChildren = (id) => {
 		return items.filter((item) => item.folderId === id);
 	};
@@ -58,7 +47,6 @@ export default function SideList() {
 
 		createLevel(filterDirs);
 
-		// console.log('fillllll',JSON.stringify(filterDirs, undefined, 4))
 		setSideList(filterDirs);
 	};
 	const onAdd = (project) => {
@@ -122,59 +110,34 @@ export default function SideList() {
 				<div id="sideListOpt">
 					<ul className="tree">
 						{sideList.map((item, index) => (
-							<li
-								className={item.type === "folder" ? "folder" : "project"}
-								onClick={(e) => {
-									e.stopPropagation();
-									handleClick(item.type, item.id);
-								}}
-								key={item.itemText + index}
-							>
+							<ListItem item={item} key={item.itemText + index}>
 								<details>
 									<summary>{item.itemText}</summary>
-
 									{item?.level && (
 										<ul>
 											{item.level.map((item) => (
-												<li
-													className={
-														item.type === "folder" ? "folder" : "project"
-													}
-													onClick={(e) => {
-														e.stopPropagation();
-														handleClick(item.type, item.id);
-													}}
-													key={item.itemText + index}
-												>
+												<ListItem item={item} key={item.itemText + index}>
 													<details>
 														<summary>{item.itemText}</summary>
 														{item?.level && (
 															<ul>
 																{item.level.map((item) => (
-																	<li
-																		className={
-																			item.type === "folder"
-																				? "folder"
-																				: "project"
-																		}
-																		onClick={(e) => {
-																			e.stopPropagation();
-																			handleClick(item.type, item.id);
-																		}}
+																	<ListItem
+																		item={item}
 																		key={item.itemText + index}
 																	>
 																		{item.itemText}
-																	</li>
+																	</ListItem>
 																))}
 															</ul>
 														)}
 													</details>
-												</li>
+												</ListItem>
 											))}
 										</ul>
 									)}
 								</details>
-							</li>
+							</ListItem>
 						))}
 					</ul>
 

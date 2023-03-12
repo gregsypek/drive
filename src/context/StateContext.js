@@ -8,19 +8,6 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
-	// const dirs = dataDirs.dirs.map((item) => ({
-	// 	id: item.id,
-	// 	type: "folder",
-	// 	itemText: item.name,
-	// 	folderId: item.parentDirId,
-	// }));
-	// const projects = dataProjects.projects.map((project) => ({
-	// 	id: project.id,
-	// 	type: "project",
-	// 	itemText: project.name,
-	// 	folderId: project.folderId,
-	// }));
-
 	const [sideList, setSideList] = useState([]);
 	const [filteredItems, setFilteredItems] = useState([]);
 	const [currentFolderId, setCurrentFolderId] = useState(null);
