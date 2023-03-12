@@ -1,10 +1,13 @@
 import React, { createContext, useContext, useState } from "react";
 import dataDirs from "../data/dirs.json";
 import dataProjects from "../data/projects.json";
+import { toast } from "react-hot-toast";
+
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
+
 	const dirs = dataDirs.dirs.map((item) => ({
 		id: item.id,
 		type: "folder",
@@ -44,7 +47,15 @@ export const StateContext = ({ children }) => {
 		console.log("filteredItems", [...filterDirs, ...filterProjects]);
 		setFilteredItems([...filterDirs, ...filterProjects]);
 	};
+	const onAdd = (project) => {
+		dataDirs.dirs.push(JSON.stringify(project, null, 4))
+		// fs.writeFileSync('dirs.json', JSON.stringify(project, null, 4))
+		setItems([...items, { ...project }]);
 
+		console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items)
+		
+		toast.success("Success! New project added to the list");
+	};
 
 	// const createSideList = (id) => {
 	// 	displayDirs(id);
@@ -77,7 +88,8 @@ export const StateContext = ({ children }) => {
 				setCurrentFolderId,
 				sortAndFilter,				
 				sideList,
-				setSideList
+				setSideList,
+				onAdd
 			}}
 		>
 			{children}

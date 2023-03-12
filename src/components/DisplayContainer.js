@@ -9,7 +9,8 @@ export default function DisplayContainer() {
 		filterCurrentDisplayItems,
 		filteredItems,
 		currentFolderId,
-    sortAndFilter
+    sortAndFilter,
+    items
 	} = useStateContext();
 
   useEffect(() => {
