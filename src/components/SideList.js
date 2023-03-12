@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../css/SideList.css";
-// import {toast} from 'react-hot-toast';
 import { toast } from "react-hot-toast";
 import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
@@ -16,6 +15,8 @@ export default function SideList() {
 		setSideList,
 		sideList,
 		setItems,
+		setProjects,
+		setDirs,
 	} = useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -61,11 +62,16 @@ export default function SideList() {
 		setSideList(filterDirs);
 	};
 	const onAdd = (project) => {
-		// dataDirs.dirs.push(JSON.stringify(project, null, 4))
-		// fs.writeFileSync('dirs.json', JSON.stringify(project, null, 4))
+		// console.log("🚀 ~ file: SideList.js:66 ~ onAdd ~ project:", project);
+		// for sideList update
 		setItems([...items, { ...project }]);
+		// for displayContainer update
+		if (project.type === "project")
+			setProjects((prevState) => [...prevState, project]);
+		if (project.type === "folder")
+			setDirs((prevState) => [...prevState, project]);
 
-		console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items);
+		// console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items);
 
 		toast.success("Success! New project added to the list");
 	};
@@ -86,7 +92,7 @@ export default function SideList() {
 
 			onAdd({
 				id: nanoid(),
-				type: value === 1 ? 'project' : 'folder',
+				type: value === 1 ? "project" : "folder",
 				itemText: newProjectName,
 				folderId: null,
 			});
@@ -170,9 +176,8 @@ export default function SideList() {
 								</details>
 							</li>
 						))}
-					
 					</ul>
-				
+
 					<Modal
 						title="Add new Project"
 						open={isModalVisible}

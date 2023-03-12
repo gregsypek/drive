@@ -8,23 +8,37 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
-	const dirs = dataDirs.dirs.map((item) => ({
+	// const dirs = dataDirs.dirs.map((item) => ({
+	// 	id: item.id,
+	// 	type: "folder",
+	// 	itemText: item.name,
+	// 	folderId: item.parentDirId,
+	// }));
+	// const projects = dataProjects.projects.map((project) => ({
+	// 	id: project.id,
+	// 	type: "project",
+	// 	itemText: project.name,
+	// 	folderId: project.folderId,
+	// }));
+
+	const [sideList, setSideList] = useState([]);
+	const [filteredItems, setFilteredItems] = useState([]);
+	const [currentFolderId, setCurrentFolderId] = useState(null);
+	const [dirs, setDirs] = useState(dataDirs.dirs.map((item) => ({
 		id: item.id,
 		type: "folder",
 		itemText: item.name,
 		folderId: item.parentDirId,
-	}));
-	const projects = dataProjects.projects.map((project) => ({
+	})))
+	const [projects, setProjects] = useState(dataProjects.projects.map((project) => ({
 		id: project.id,
 		type: "project",
 		itemText: project.name,
 		folderId: project.folderId,
-	}));
+	})))
 
 	const [items, setItems] = useState([...dirs, ...projects]);
-	const [sideList, setSideList] = useState([]);
-	const [filteredItems, setFilteredItems] = useState([]);
-	const [currentFolderId, setCurrentFolderId] = useState(null);
+
 	// "6affab85-552e-49ec-90cd-78bc65d2ffa1"
 
 	let filterDirs;
@@ -52,18 +66,12 @@ export const StateContext = ({ children }) => {
 		// fs.writeFileSync('dirs.json', JSON.stringify(project, null, 4))
 		setItems([...items, { ...project }]);
 
-		console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items)
+		// console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items)
 		
 		toast.success("Success! New project added to the list");
 	};
 
-	// const createSideList = (id) => {
-	// 	displayDirs(id);
-	// 	displayProjects(id);
 
-	// 	console.log("filteredItems", [...filterDirs, ...filterProjects]);
-	// 	setSideList([...filterDirs, ...filterProjects]);
-	// };
 
 	const sortAndFilter = (arr) => {
 		const sorted = arr.sort((a, b) => {
@@ -89,7 +97,9 @@ export const StateContext = ({ children }) => {
 				sortAndFilter,				
 				sideList,
 				setSideList,
-				onAdd
+				onAdd,
+				setDirs,
+				setProjects
 			}}
 		>
 			{children}
