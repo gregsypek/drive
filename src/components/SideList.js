@@ -43,7 +43,6 @@ export default function SideList() {
 		return arr;
 	};
 
-
 	const createSideList = (items) => {
 		let filterDirs;
 		filterDirs = items.filter((item) => item.folderId === null);
@@ -68,20 +67,49 @@ export default function SideList() {
 				<div id="sideListOpt">
 					<ul className="tree">
 						{sideList.map((item, index) => (
-							<li>
+							<li
+								className={item.type === "folder" ? "folder" : "project"}
+								onClick={(e) => {
+									e.stopPropagation();
+									handleClick(item.type, item.id);
+								}}
+								key={item.itemText+ index}
+							>
 								<details>
 									<summary>{item.itemText}</summary>
 
 									{item?.level && (
 										<ul>
-											{item.level.map((obj) => (
-												<li>
+											{item.level.map((item) => (
+												<li
+													className={
+														item.type === "folder" ? "folder" : "project"
+													}
+													onClick={(e) => {
+														e.stopPropagation();
+														handleClick(item.type, item.id);
+													}}
+													key={item.itemText+ index}
+												>
 													<details>
-														<summary>{obj.itemText}</summary>
-														{obj?.level && (
+														<summary>{item.itemText}</summary>
+														{item?.level && (
 															<ul>
-																{obj.level.map((obj2) => (
-																	<li>{obj2.itemText}</li>
+																{item.level.map((item) => (
+																	<li
+																		className={
+																			item.type === "folder"
+																				? "folder"
+																				: "project"
+																		}
+																		onClick={(e) => {
+																			e.stopPropagation();
+																			handleClick(item.type, item.id);
+																		}}
+																		key={item.itemText+ index}
+																	>
+																		{item.itemText}
+																	</li>
 																))}
 															</ul>
 														)}
@@ -92,7 +120,7 @@ export default function SideList() {
 									)}
 								</details>
 							</li>
-						))}
+						))}					
 						{/* VERSION WITHOUT DETAILS */}
 						{/* {sideList.map((item, index) => (
 							<li>
