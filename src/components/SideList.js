@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import "../css/SideList.css";
 // import {toast} from 'react-hot-toast';
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 import { useStateContext } from "../context/StateContext";
+import ListItem from "./ListItem";
 
 export default function SideList() {
 	const {
@@ -68,51 +69,18 @@ export default function SideList() {
 							if (item.id === currentFolderId)
 								return (
 									<>
-										<li
-											onClick={() => handleClick(item.type, item.id)}
-											className={item.type === "folder" ? "folder" : "project"}
-											key={nanoid()}
-											style={{ color: "red" }}
-										>
-											{item.itemText}
-										</li>
+										<ListItem item={item} />
 
 										<ul>
-											{filteredItems.map((item, index) => 
-											
-											(
-												<li
-													onClick={(e) => {
-														e.stopPropagation();
-														handleClick(item.type, item.id);
-													
-													}}
-													className={
-														item.type === "folder" ? "folder" : "project"
-													}
-								
-													style={{ marginLeft: 10 }}
-													key={nanoid()}
-												>
-													{item.itemText}
-												</li>
-											)
-											
-											)}
+											{filteredItems.map((item, index) => (
+												<ListItem item={item} />
+											))}
 										</ul>
 									</>
 								);
-							return (
-								<li
-									onClick={() => handleClick(item.type, item.id)}
-									className={item.type === "folder" ? "folder" : "project"}
-									key={nanoid()}
-								>
-									{item.itemText}
-								</li>
-							);
+							return <ListItem item={item} />;
 						})}
-					</ul>	
+					</ul>
 				</div>
 			</div>
 		</>
