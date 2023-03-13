@@ -9,14 +9,8 @@ import ListItem from "./ListItem";
 import LastItem from "./LastItem";
 
 export default function SideList() {
-	const {	
-		allItems,
-		setSideList,
-		sideList,
-		setAllItems,
-		setProjects,
-		setDirs,
-	} = useStateContext();
+	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs } =
+		useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
@@ -108,36 +102,64 @@ export default function SideList() {
 					<p onClick={showModalAdd}>Add New </p>
 				</button>
 
-				<div id="sideListOpt">				
+				<div id="sideListOpt">
 					<ul className="tree">
 						{sideList.map((item, index) => (
-							<ListItem item={item} key={item.itemText + index}>
-								<details>
-									<summary>{item.itemText}</summary>
-									{item?.level && (
-										<ul>
-											{item.level.map((item) => (
-												<ListItem item={item} key={item.itemText + index}>
-													<details>
-														<summary>{item.itemText}</summary>
-														{item?.level && (
-													
-															<ul>
-																{item.level.map((item) => (
-																<LastItem item={item}/>
-																))}
-															</ul>
-														)}
-												
-													</details>
-												</ListItem>
-											))}
-										</ul>
-									)}
-								</details>
+							<ListItem
+								item={item}
+								level={item.level !== undefined}
+								key={item.itemText + index}
+							>
+								{item?.level && (
+									<ul>
+										{item.level.map((item) => (
+											<ListItem
+												item={item}
+												level={item.level !== undefined}
+												key={item.itemText + index}
+											>
+												{item?.level && (
+													<ul>
+														{item.level.map((item) => (
+															<LastItem item={item} />
+														))}
+													</ul>
+												)}
+											</ListItem>
+										))}
+									</ul>
+								)}
 							</ListItem>
 						))}
+						{/* {sideList.map((item, index) => (
+							<ListItem
+								item={item}
+								level={item.level !== undefined}
+								key={item.itemText + index}
+							>
+								{item?.level && (
+									<ul>
+										{item.level.map((item) => (
+											<ListItem
+												item={item}
+												level={item.level !== undefined}
+												key={item.itemText + index}
+											>
+												{item?.level && (
+													<ul>
+														{item.level.map((item) => (
+															<LastItem item={item} />
+														))}
+													</ul>
+												)}
+											</ListItem>
+										))}
+									</ul>
+								)}
+							</ListItem>
+						))} */}
 					</ul>
+			
 					<Modal
 						title="Add new Project"
 						open={isModalVisible}
