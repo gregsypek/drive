@@ -10,7 +10,7 @@ import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
 export default function DisplayCard({ data }) {
-	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId,setAllItems, allItems,setcurrentItemName } =
+	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId,setAllItems, allItems,setcurrentItemName,setDirs } =
 		useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
@@ -58,7 +58,8 @@ export default function DisplayCard({ data }) {
 			// console.log("🚀 ~ file: DisplayCard.js:56 ~ projectAddUpload ~ newItem:", newItem)
 			// console.log("🚀 ~ file: DisplayCard.js:56 ~ allItems ~ allItems:", allItems)
 
-			setAllItems([...allItems, {...newItem}])
+			setAllItems([...allItems, {...newItem}]);
+			setDirs((prevState)=> ([...prevState, {...newItem}]))
 		
 
 			setIsModalVisible(false);
