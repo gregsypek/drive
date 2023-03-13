@@ -11,6 +11,7 @@ export const StateContext = ({ children }) => {
 	const [sideList, setSideList] = useState([]);
 	const [filteredItems, setFilteredItems] = useState([]);
 	const [currentFolderId, setCurrentFolderId] = useState(null);
+	const [currentItemName, setcurrentItemName] = useState(null)
 	const [dirs, setDirs] = useState(dataDirs.dirs.map((item) => ({
 		id: item.id,
 		type: "folder",
@@ -86,7 +87,7 @@ export const StateContext = ({ children }) => {
 				setSideList,
 				onAdd,
 				setDirs,
-				setProjects
+				setProjects,currentItemName, setcurrentItemName
 			}}
 		>
 			{children}

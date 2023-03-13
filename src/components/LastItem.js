@@ -4,29 +4,31 @@ import "../css/SideList.css";
 
 import { useStateContext } from "../context/StateContext";
 
-const ListItem = ({ item, children }) => {
-	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId, setcurrentItemName } =
+const ListItem = ({ item }) => {
+	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId } =
 		useStateContext();
 
 	const handleClick = (type, id) => {
 		console.log("🚀 ~ file: SideList.js:41 ~ handleClick ~ id222:", id);
-		console.log("🚀 ~ file: SideList.js:41 ~ handleClick ~ type222:", type)
+		console.log("🚀 ~ file: SideList.js:41 ~ handleClick ~ type222:", type);
 
 		if (type === "folder") {
 			setCurrentFolderId(id);
 			filterCurrentDisplayItems(currentFolderId);
 		}
-		setcurrentItemName(item.itemText)
 	};
 
 	return (
 		<>
 			<li
-				onClick={() => handleClick(item.type, item.id)}
+				onClick={(e) => {
+					e.stopPropagation();
+					handleClick(item.type, item.id);
+				}}
 				className={item.type === "folder" ? "folder" : "project"}
 				style={{ marginLeft: 10 }}
 			>
-				{children}
+				{item.itemText}
 			</li>
 		</>
 	);

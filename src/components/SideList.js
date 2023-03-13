@@ -6,9 +6,10 @@ import { nanoid } from "nanoid";
 
 import { useStateContext } from "../context/StateContext";
 import ListItem from "./ListItem";
+import LastItem from "./LastItem";
 
 export default function SideList() {
-	const {
+	const {	
 		allItems,
 		setSideList,
 		sideList,
@@ -107,7 +108,7 @@ export default function SideList() {
 					<p onClick={showModalAdd}>Add New </p>
 				</button>
 
-				<div id="sideListOpt">
+				<div id="sideListOpt">				
 					<ul className="tree">
 						{sideList.map((item, index) => (
 							<ListItem item={item} key={item.itemText + index}>
@@ -120,17 +121,14 @@ export default function SideList() {
 													<details>
 														<summary>{item.itemText}</summary>
 														{item?.level && (
+													
 															<ul>
 																{item.level.map((item) => (
-																	<ListItem
-																		item={item}
-																		key={item.itemText + index}
-																	>
-																		{item.itemText}
-																	</ListItem>
+																<LastItem item={item}/>
 																))}
 															</ul>
 														)}
+												
 													</details>
 												</ListItem>
 											))}
@@ -140,7 +138,6 @@ export default function SideList() {
 							</ListItem>
 						))}
 					</ul>
-
 					<Modal
 						title="Add new Project"
 						open={isModalVisible}

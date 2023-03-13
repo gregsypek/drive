@@ -10,7 +10,7 @@ import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
 export default function DisplayCard({ data }) {
-	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId,setAllItems, allItems } =
+	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId,setAllItems, allItems,setcurrentItemName } =
 		useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
@@ -20,6 +20,8 @@ export default function DisplayCard({ data }) {
 			setCurrentFolderId(id);
 			filterCurrentDisplayItems(currentFolderId);
 		}
+		setcurrentItemName(data.itemText)
+
 	};
 	const showModalAdd = () => {
 		setIsModalVisible(true);

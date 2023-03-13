@@ -10,7 +10,7 @@ export default function DisplayContainer() {
 		filteredItems,
 		currentFolderId,
     sortAndFilter,
-    allItems,
+    allItems,currentItemName, 
 	} = useStateContext();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function DisplayContainer() {
 
       <div id="displayCont">
         <div id="displayInfoNav">
-          <p>Heading</p>
+          <p>{currentItemName}</p>
         </div>
       
         {/* {console.log("🚀 ~ file: DisplayContainer.js:42 ~ DisplayContainer ~ filteredItems2:", sortAndFilter(filteredItems))} */}
