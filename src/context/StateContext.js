@@ -87,7 +87,10 @@ export const StateContext = ({ children }) => {
 				setSideList,
 				onAdd,
 				setDirs,
-				setProjects,currentItemName, setcurrentItemName
+				setProjects,
+				currentItemName,
+				setcurrentItemName,
+				dirs
 			}}
 		>
 			{children}

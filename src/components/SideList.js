@@ -9,7 +9,7 @@ import ListItem from "./ListItem";
 import LastItem from "./LastItem";
 
 export default function SideList() {
-	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs } =
+	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs,dirs } =
 		useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -93,7 +93,7 @@ export default function SideList() {
 
 	useEffect(() => {
 		createSideList(allItems);
-	}, [allItems]);
+	}, [allItems, setDirs,dirs]);
 
 	return (
 		<>
@@ -103,61 +103,15 @@ export default function SideList() {
 				</button>
 
 				<div id="sideListOpt">
-					<ul className="tree">
+					<ul className="tree">						
 						{sideList.map((item, index) => (
 							<ListItem
 								item={item}
 								level={item.level !== undefined}
 								key={item.itemText + index}
-							>
-								{item?.level && (
-									<ul>
-										{item.level.map((item) => (
-											<ListItem
-												item={item}
-												level={item.level !== undefined}
-												key={item.itemText + index}
-											>
-												{item?.level && (
-													<ul>
-														{item.level.map((item) => (
-															<LastItem item={item} />
-														))}
-													</ul>
-												)}
-											</ListItem>
-										))}
-									</ul>
-								)}
+							>							
 							</ListItem>
 						))}
-						{/* {sideList.map((item, index) => (
-							<ListItem
-								item={item}
-								level={item.level !== undefined}
-								key={item.itemText + index}
-							>
-								{item?.level && (
-									<ul>
-										{item.level.map((item) => (
-											<ListItem
-												item={item}
-												level={item.level !== undefined}
-												key={item.itemText + index}
-											>
-												{item?.level && (
-													<ul>
-														{item.level.map((item) => (
-															<LastItem item={item} />
-														))}
-													</ul>
-												)}
-											</ListItem>
-										))}
-									</ul>
-								)}
-							</ListItem>
-						))} */}
 					</ul>
 			
 					<Modal
