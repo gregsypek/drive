@@ -10,8 +10,15 @@ import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
 export default function DisplayCard({ data }) {
-	const { filterCurrentDisplayItems, currentFolderId, setCurrentFolderId,setAllItems, allItems,setcurrentItemName,setDirs } =
-		useStateContext();
+	const {
+		filterCurrentDisplayItems,
+		currentFolderId,
+		setCurrentFolderId,
+		setAllItems,
+		allItems,
+		setcurrentItemName,
+		setDirs,
+	} = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
 
@@ -20,8 +27,7 @@ export default function DisplayCard({ data }) {
 			setCurrentFolderId(id);
 			filterCurrentDisplayItems(currentFolderId);
 		}
-		setcurrentItemName(data.itemText)
-
+		setcurrentItemName(data.itemText);
 	};
 	const showModalAdd = () => {
 		setIsModalVisible(true);
@@ -51,16 +57,15 @@ export default function DisplayCard({ data }) {
 			console.log("🚀 ~ file: DisplayCard.js:15 ~ handleClick ~ id:", data.id);
 			const newItem = {
 				id: nanoid(),
-				type: 'folder',
+				type: "folder",
 				itemText: newProjectName,
-				folderId: data.id
+				folderId: data.id,
 			};
 			// console.log("🚀 ~ file: DisplayCard.js:56 ~ projectAddUpload ~ newItem:", newItem)
 			// console.log("🚀 ~ file: DisplayCard.js:56 ~ allItems ~ allItems:", allItems)
 
-			setAllItems([...allItems, {...newItem}]);
-			setDirs((prevState)=> ([...prevState, {...newItem}]))
-		
+			setAllItems([...allItems, { ...newItem }]);
+			setDirs((prevState) => [...prevState, { ...newItem }]);
 
 			setIsModalVisible(false);
 			// clean input
@@ -89,22 +94,31 @@ export default function DisplayCard({ data }) {
 		token: { colorTextTertiary },
 	} = theme.useToken();
 
-
-
-useEffect(() => {
-console.log('allItems', allItems)
-}, [allItems])
+	useEffect(() => {
+		// console.log('allItems', allItems)
+	}, [allItems]);
 
 	return (
 		<>
-			<Dropdown
-				menu={{
-					items,
-					onClick,
-				}}
-				trigger={["contextMenu"]}
-				onClick={(e) => e.preventDefault()}
-			>
+			{data.type === "folder" ? (
+				<Dropdown
+					menu={{
+						items,
+						onClick,
+					}}
+					trigger={["contextMenu"]}
+					onClick={(e) => e.preventDefault()}
+				>
+					<div id="displayCard" onClick={() => handleClick(data.type, data.id)}>
+						<img
+							src={data.type === "folder" ? folder : file}
+							alt="file"
+							className="opacity"
+						/>
+						<h2 className="opacity">{data.itemText}</h2>
+					</div>
+				</Dropdown>
+			) : (
 				<div id="displayCard" onClick={() => handleClick(data.type, data.id)}>
 					<img
 						src={data.type === "folder" ? folder : file}
@@ -113,8 +127,8 @@ console.log('allItems', allItems)
 					/>
 					<h2 className="opacity">{data.itemText}</h2>
 				</div>
-			</Dropdown>
-			{/* <AddFolder data={data}/> */}
+			)}
+
 			<Modal
 				title="Add new Project"
 				open={isModalVisible}

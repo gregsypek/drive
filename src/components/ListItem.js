@@ -47,7 +47,7 @@ const ListItem = ({ item, children, level }) => {
 									{item?.level && (
 										<ul>
 											{item.level.map((item) => (
-												<LastItem item={item} />
+												<LastItem item={item} 	key={item.itemText + index}/>
 											))}
 										</ul>
 									)}

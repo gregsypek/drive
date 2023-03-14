@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-#displayInfoNav {
+#displayNav {
   display: flex;
   align-items: center;
   padding:  10px;
@@ -54,4 +54,25 @@
 
 #displayCard img {
   height: 20px;
+}
+
+#displayNav {
+  /* width: 80%; */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding:  10px;
+}
+
+
+#displayNav p {
+  /* font-size: 20px; */
+  width: 90%;
+}
+#displayNav img {
+  height: 20px;
+  cursor: pointer
+}
+#displayNav img:hover {
+opacity: 1;
 }
