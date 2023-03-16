@@ -4,9 +4,14 @@ import folder from "../pics/folder.png";
 import file from "../pics/blue-file.png";
 import { useStateContext } from "../context/StateContext";
 import { Dropdown, theme } from "antd";
-import { DeleteOutlined, FolderAddOutlined } from "@ant-design/icons";
+import {
+	DeleteOutlined,
+	FolderAddOutlined,
+	ExclamationCircleFilled,
+	
+} from "@ant-design/icons";
 import { toast } from "react-hot-toast";
-import { Modal, Input, Radio } from "antd";
+import { Modal, Input } from "antd";
 import { nanoid } from "nanoid";
 
 export default function DisplayCard({ data }) {
@@ -18,9 +23,11 @@ export default function DisplayCard({ data }) {
 		allItems,
 		setcurrentItemName,
 		setDirs,
+		onRemove,createSideList
 	} = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
+	const { confirm } = Modal;
 
 	const handleClick = (type, id) => {
 		if (type === "folder") {
@@ -29,12 +36,31 @@ export default function DisplayCard({ data }) {
 		}
 		setcurrentItemName(data.itemText);
 	};
+
 	const showModalAdd = () => {
 		setIsModalVisible(true);
 	};
+
 	const handleModalAddCancel = () => {
 		setIsModalVisible(false);
 	};
+
+	const showDeleteConfirm = () => {
+		confirm({
+			title: "Delete this item?",
+			icon: <ExclamationCircleFilled />,
+			content: "This item will be deleted permanently with all content inside!",
+			okText: "Yes",
+			okType: "danger",
+			cancelText: "No",
+			onOk() {
+			onRemove(data.id);
+				toast.success("success");
+			},
+			onCancel() {},
+		});
+	};
+
 	const onClick = ({ key }) => {
 		if (key === "1") {
 			// const deleted = projectItems.map(obj=> onRemoveByObject(obj, activeProject))
@@ -42,8 +68,7 @@ export default function DisplayCard({ data }) {
 			// setProjectItems(deleted)
 		}
 		if (key === "2") {
-			// showModalRename();
-			toast.success("Folder Rename not implemented yet");
+			showDeleteConfirm();
 		}
 	};
 
@@ -53,8 +78,8 @@ export default function DisplayCard({ data }) {
 				"🚀 ~ file: DisplayCard.js:45 ~ projectAddUpload ~ newProjectName:",
 				newProjectName
 			);
-
 			console.log("🚀 ~ file: DisplayCard.js:15 ~ handleClick ~ id:", data.id);
+
 			const newItem = {
 				id: nanoid(),
 				type: "folder",
@@ -68,6 +93,7 @@ export default function DisplayCard({ data }) {
 			setDirs((prevState) => [...prevState, { ...newItem }]);
 
 			setIsModalVisible(false);
+
 			// clean input
 			setNewProjectName("");
 		} else {
@@ -80,15 +106,15 @@ export default function DisplayCard({ data }) {
 
 	const items = [
 		{
-			label: "Nowy Folder",
+			label: "New Folder",
 			key: "1",
 			icon: <FolderAddOutlined />,
 		},
-		// {
-		// 	label: "Delete",
-		// 	key: "2",
-		// 	icon: <DeleteOutlined />,
-		// },
+		{
+			label: "Delete",
+			key: "2",
+			icon: <DeleteOutlined />,
+		},
 	];
 	const {
 		token: { colorTextTertiary },
@@ -96,8 +122,8 @@ export default function DisplayCard({ data }) {
 
 	useEffect(() => {
 		// console.log('allItems', allItems)
-	}, [allItems]);
-
+		createSideList(allItems);
+	}, [setAllItems]);
 	return (
 		<>
 			{data.type === "folder" ? (
@@ -140,7 +166,7 @@ export default function DisplayCard({ data }) {
 					onChange={(event) => setNewProjectName(event.target.value)}
 					value={newProjectName}
 				/>
-			</Modal>
+			</Modal>	
 		</>
 	);
 }

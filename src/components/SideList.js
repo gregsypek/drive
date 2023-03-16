@@ -4,12 +4,11 @@ import { toast } from "react-hot-toast";
 import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
-import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../context/StateContext"; 
 import ListItem from "./ListItem";
-import LastItem from "./LastItem";
 
 export default function SideList() {
-	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs,dirs } =
+	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs,dirs,createSideList } =
 		useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,29 +20,6 @@ export default function SideList() {
 		setValue(e.target.value);
 	};
 
-	const findChildren = (id) => {
-		return allItems.filter((item) => item.folderId === id);
-	};
-
-	const createLevel = (arr) => {
-		arr.map((obj, index) => {
-			if (findChildren(obj.id).length) {
-				obj["level"] = findChildren(obj.id);
-				return createLevel(obj["level"]);
-			}
-			return obj;
-		});
-		return arr;
-	};
-
-	const createSideList = (allItems) => {
-		let filterDirs;
-		filterDirs = allItems.filter((item) => item.folderId === null);
-
-		createLevel(filterDirs);
-
-		setSideList(filterDirs);
-	};
 	const onAdd = (project) => {
 		console.log("🚀 ~ file: SideList.js:66 ~ onAdd ~ project:", project);
 		// for sideList update
@@ -93,7 +69,8 @@ export default function SideList() {
 
 	useEffect(() => {
 		createSideList(allItems);
-	}, [allItems, setDirs,dirs]);
+		// createSideList(sideList);
+	}, [allItems, setDirs,dirs, setAllItems, setSideList ]);
 
 	return (
 		<>

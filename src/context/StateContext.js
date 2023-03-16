@@ -3,27 +3,29 @@ import dataDirs from "../data/dirs.json";
 import dataProjects from "../data/projects.json";
 import { toast } from "react-hot-toast";
 
-
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-
 	const [sideList, setSideList] = useState([]);
 	const [filteredItems, setFilteredItems] = useState([]);
 	const [currentFolderId, setCurrentFolderId] = useState(null);
-	const [currentItemName, setcurrentItemName] = useState(null)
-	const [dirs, setDirs] = useState(dataDirs.dirs.map((item) => ({
-		id: item.id,
-		type: "folder",
-		itemText: item.name,
-		folderId: item.parentDirId,
-	})))
-	const [projects, setProjects] = useState(dataProjects.projects.map((project) => ({
-		id: project.id,
-		type: "project",
-		itemText: project.name,
-		folderId: project.folderId,
-	})))
+	const [currentItemName, setcurrentItemName] = useState(null);
+	const [dirs, setDirs] = useState(
+		dataDirs.dirs.map((item) => ({
+			id: item.id,
+			type: "folder",
+			itemText: item.name,
+			folderId: item.parentDirId,
+		}))
+	);
+	const [projects, setProjects] = useState(
+		dataProjects.projects.map((project) => ({
+			id: project.id,
+			type: "project",
+			itemText: project.name,
+			folderId: project.folderId,
+		}))
+	);
 
 	const [allItems, setAllItems] = useState([...dirs, ...projects]);
 
@@ -50,16 +52,63 @@ export const StateContext = ({ children }) => {
 		setFilteredItems([...filterDirs, ...filterProjects]);
 	};
 	const onAdd = (project) => {
-		dataDirs.dirs.push(JSON.stringify(project, null, 4))
+		dataDirs.dirs.push(JSON.stringify(project, null, 4));
 		// fs.writeFileSync('dirs.json', JSON.stringify(project, null, 4))
 		setAllItems([...allItems, { ...project }]);
 
 		// console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items)
-		
+
 		toast.success("Success! New project added to the list");
 	};
 
+	const onRemove = (id) => {
+		const updateItems = allItems.filter((item) => {
+			console.log(
+				"🚀 ~ file: StateContext.js:64 ~ onRemove ~ allItems:",
+				allItems
+			);
+			return item.id !== id;
+		});
+		console.log(
+			"🚀 ~ file: StateContext.js:64 ~ onRemove ~ updateItems:",
+			updateItems
+		);
+		const updateDirs = dirs.filter((item) => item.id !== id);
 
+		console.log("🚀 ~ file: StateContext.js:66 ~ onRemove ~ dirs:", dirs);
+		console.log(
+			"🚀 ~ file: StateContext.js:65 ~ onRemove ~ updateDirs:",
+			updateDirs
+		);
+		setDirs(updateDirs);
+
+		setSideList(updateItems);
+		setAllItems(updateItems);
+		// createSideList(updateItems);
+	};
+	const findChildren = (id) => {
+		return allItems.filter((item) => item.folderId === id);
+	};
+
+	const createLevel = (arr) => {
+		arr.map((obj, index) => {
+			if (findChildren(obj.id).length) {
+				obj["level"] = findChildren(obj.id);
+				return createLevel(obj["level"]);
+			}
+			return obj;
+		});
+		return arr;
+	};
+
+	const createSideList = (arr) => {
+		let filterDirs;
+		filterDirs = arr.filter((item) => item.folderId === null);
+
+		createLevel(filterDirs);
+
+		setSideList(filterDirs);
+	};
 
 	const sortAndFilter = (arr) => {
 		const sorted = arr.sort((a, b) => {
@@ -82,7 +131,7 @@ export const StateContext = ({ children }) => {
 				setFilteredItems,
 				currentFolderId,
 				setCurrentFolderId,
-				sortAndFilter,				
+				sortAndFilter,
 				sideList,
 				setSideList,
 				onAdd,
@@ -90,7 +139,9 @@ export const StateContext = ({ children }) => {
 				setProjects,
 				currentItemName,
 				setcurrentItemName,
-				dirs
+				dirs,
+				onRemove,
+				createSideList,
 			}}
 		>
 			{children}
