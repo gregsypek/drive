@@ -4,16 +4,24 @@ import { toast } from "react-hot-toast";
 import { Modal, Input, Radio } from "antd";
 import { nanoid } from "nanoid";
 
-import { useStateContext } from "../context/StateContext"; 
+import { useStateContext } from "../context/StateContext";
 import ListItem from "./ListItem";
 
 export default function SideList() {
-	const { allItems, setSideList, sideList, setAllItems, setProjects, setDirs,dirs,createSideList } =
-		useStateContext();
+	const {
+		allItems,
+		setSideList,
+		sideList,
+		setAllItems,
+		setProjects,
+		setDirs,
+		dirs,
+		createSideList,
+	} = useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
-	const [value, setValue] = useState(1);
+	const [value, setValue] = useState(2);
 
 	const onChange = (e) => {
 		console.log("radio checked", e.target.value);
@@ -29,8 +37,6 @@ export default function SideList() {
 			setProjects((prevState) => [...prevState, project]);
 		if (project.type === "folder")
 			setDirs((prevState) => [...prevState, project]);
-
-		// console.log("🚀 ~ file: StateContext.js:50 ~ onAdd ~ items:", items);
 
 		toast.success("Success! New project added to the list");
 	};
@@ -69,8 +75,7 @@ export default function SideList() {
 
 	useEffect(() => {
 		createSideList(allItems);
-		// createSideList(sideList);
-	}, [allItems, setDirs,dirs, setAllItems, setSideList ]);
+	}, [allItems, setDirs, dirs, setAllItems, setSideList]);
 
 	return (
 		<>
@@ -80,17 +85,16 @@ export default function SideList() {
 				</button>
 
 				<div id="sideListOpt">
-					<ul className="tree">						
+					<ul className="tree">
 						{sideList.map((item, index) => (
 							<ListItem
 								item={item}
 								level={item.level !== undefined}
 								key={item.itemText + index}
-							>							
-							</ListItem>
+							></ListItem>
 						))}
 					</ul>
-			
+
 					<Modal
 						title="Add new Project"
 						open={isModalVisible}

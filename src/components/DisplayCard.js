@@ -8,7 +8,6 @@ import {
 	DeleteOutlined,
 	FolderAddOutlined,
 	ExclamationCircleFilled,
-	
 } from "@ant-design/icons";
 import { toast } from "react-hot-toast";
 import { Modal, Input } from "antd";
@@ -23,7 +22,8 @@ export default function DisplayCard({ data }) {
 		allItems,
 		setcurrentItemName,
 		setDirs,
-		onRemove,createSideList
+		onRemove,
+		createSideList,
 	} = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [newProjectName, setNewProjectName] = useState("");
@@ -54,7 +54,13 @@ export default function DisplayCard({ data }) {
 			okType: "danger",
 			cancelText: "No",
 			onOk() {
-			onRemove(data.id);
+				onRemove(data.id);
+				// console.log(
+				// 	"🚀 ~ file: DisplayCard.js:60 ~ onOk ~ allItems:",
+				// 	allItems
+				// );
+
+				// createSideList(allItems);
 				toast.success("success");
 			},
 			onCancel() {},
@@ -74,20 +80,12 @@ export default function DisplayCard({ data }) {
 
 	const projectAddUpload = () => {
 		if (newProjectName.length > 0) {
-			console.log(
-				"🚀 ~ file: DisplayCard.js:45 ~ projectAddUpload ~ newProjectName:",
-				newProjectName
-			);
-			console.log("🚀 ~ file: DisplayCard.js:15 ~ handleClick ~ id:", data.id);
-
 			const newItem = {
 				id: nanoid(),
 				type: "folder",
 				itemText: newProjectName,
 				folderId: data.id,
 			};
-			// console.log("🚀 ~ file: DisplayCard.js:56 ~ projectAddUpload ~ newItem:", newItem)
-			// console.log("🚀 ~ file: DisplayCard.js:56 ~ allItems ~ allItems:", allItems)
 
 			setAllItems([...allItems, { ...newItem }]);
 			setDirs((prevState) => [...prevState, { ...newItem }]);
@@ -120,10 +118,10 @@ export default function DisplayCard({ data }) {
 		token: { colorTextTertiary },
 	} = theme.useToken();
 
-	useEffect(() => {
-		// console.log('allItems', allItems)
-		createSideList(allItems);
-	}, [setAllItems]);
+	// useEffect(() => {
+	// 	// console.log('allItems', allItems)
+	// 	createSideList(allItems);
+	// }, [setAllItems]);
 	return (
 		<>
 			{data.type === "folder" ? (
@@ -166,7 +164,7 @@ export default function DisplayCard({ data }) {
 					onChange={(event) => setNewProjectName(event.target.value)}
 					value={newProjectName}
 				/>
-			</Modal>	
+			</Modal>
 		</>
 	);
 }

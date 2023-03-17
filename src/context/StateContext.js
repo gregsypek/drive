@@ -62,30 +62,18 @@ export const StateContext = ({ children }) => {
 	};
 
 	const onRemove = (id) => {
-		const updateItems = allItems.filter((item) => {
-			console.log(
-				"🚀 ~ file: StateContext.js:64 ~ onRemove ~ allItems:",
-				allItems
-			);
-			return item.id !== id;
-		});
-		console.log(
-			"🚀 ~ file: StateContext.js:64 ~ onRemove ~ updateItems:",
-			updateItems
-		);
-		const updateDirs = dirs.filter((item) => item.id !== id);
+		// const updateDirs = dirs.filter((item) => item.id !== id);
+		// setDirs(updateDirs);
 
-		console.log("🚀 ~ file: StateContext.js:66 ~ onRemove ~ dirs:", dirs);
-		console.log(
-			"🚀 ~ file: StateContext.js:65 ~ onRemove ~ updateDirs:",
-			updateDirs
-		);
-		setDirs(updateDirs);
+		setDirs((prevState) => prevState.filter((item) => item.id !== id));
 
-		setSideList(updateItems);
-		setAllItems(updateItems);
-		// createSideList(updateItems);
+		console.log("🚀 ~ file: StateContext.js:103 ~ onRemove ~ dirs:", dirs);
+		// setAllItems(updateItems);
+
+		setAllItems([...dirs, ...projects].filter((item) => item.id !== id));
+		createSideList(allItems);
 	};
+
 	const findChildren = (id) => {
 		return allItems.filter((item) => item.folderId === id);
 	};
