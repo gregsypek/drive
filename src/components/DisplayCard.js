@@ -8,6 +8,7 @@ import {
 	DeleteOutlined,
 	FolderAddOutlined,
 	ExclamationCircleFilled,
+	EditOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-hot-toast";
 import { Modal, Input } from "antd";
@@ -26,10 +27,13 @@ export default function DisplayCard({ data }) {
 		createSideList,
 	} = useStateContext();
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
+	const [uploadedProjectName, setUploadedProjectName] = useState("");
 	const [newProjectName, setNewProjectName] = useState("");
 	const { confirm } = Modal;
 
 	const handleClick = (type, id) => {
+		console.log("🚀 ~ file: DisplayCard.js:36 ~ handleClick ~ id:", id);
 		if (type === "folder") {
 			setCurrentFolderId(id);
 			filterCurrentDisplayItems(currentFolderId);
@@ -40,9 +44,15 @@ export default function DisplayCard({ data }) {
 	const showModalAdd = () => {
 		setIsModalVisible(true);
 	};
+	const showModalRename = () => {
+		setIsModalRenameVisible(true);
+	};
 
 	const handleModalAddCancel = () => {
 		setIsModalVisible(false);
+	};
+	const handleModalRenameCancel = () => {
+		setIsModalRenameVisible(false);
 	};
 
 	const showDeleteConfirm = () => {
@@ -69,12 +79,13 @@ export default function DisplayCard({ data }) {
 
 	const onClick = ({ key }) => {
 		if (key === "1") {
-			// const deleted = projectItems.map(obj=> onRemoveByObject(obj, activeProject))
 			showModalAdd();
-			// setProjectItems(deleted)
 		}
 		if (key === "2") {
 			showDeleteConfirm();
+		}
+		if (key === "3") {
+			showModalRename();
 		}
 	};
 
@@ -101,6 +112,44 @@ export default function DisplayCard({ data }) {
 		}
 		// toast.success('Project has ben uploaded:)')
 	};
+	const projectRenameUpload = (id) => {
+		console.log("uploadedProjectName", uploadedProjectName);
+		// console.log("foundProject here", foundProject);
+
+		if (uploadedProjectName.length > 0) {
+			console.log("🚀 ~ file: DisplayCard.js:122 ~ idd ~ idd:", id);
+
+			setAllItems((prevState) => {
+				return prevState.map((item) => {
+					if (item.id === id) {
+						return { ...item, itemText: uploadedProjectName };
+					}
+					return item;
+				});
+			});
+
+			setDirs((prevState) => {
+				return prevState.map((item) => {
+					if (item.id === id) {
+						return { ...item, itemText: uploadedProjectName };
+					}
+					return item;
+				});
+			});
+			// console.log(
+			// 	"🚀 ~ file: DisplayCard.js:156 ~ projectRenameUpload ~ allItems:",
+			// 	allItems
+			// );
+
+			setIsModalRenameVisible(false);
+			setUploadedProjectName("");
+			toast.success("Project has been uploaded!");
+		} else {
+			toast.error("Project Name must have at least one character!");
+			setIsModalRenameVisible(false);
+			return;
+		}
+	};
 
 	const items = [
 		{
@@ -113,10 +162,15 @@ export default function DisplayCard({ data }) {
 			key: "2",
 			icon: <DeleteOutlined />,
 		},
+		{
+			label: "Rename",
+			key: "3",
+			icon: <EditOutlined />,
+		},
 	];
-	const {
-		token: { colorTextTertiary },
-	} = theme.useToken();
+	// const {
+	// 	token: { colorTextTertiary },
+	// } = theme.useToken();
 
 	// useEffect(() => {
 	// 	// console.log('allItems', allItems)
@@ -131,9 +185,9 @@ export default function DisplayCard({ data }) {
 						onClick,
 					}}
 					trigger={["contextMenu"]}
-					onClick={(e) => e.preventDefault()}
+					onClick={() => handleClick(data.type, data.id)}
 				>
-					<div id="displayCard" onClick={() => handleClick(data.type, data.id)}>
+					<div id="displayCard">
 						<img
 							src={data.type === "folder" ? folder : file}
 							alt="file"
@@ -143,7 +197,7 @@ export default function DisplayCard({ data }) {
 					</div>
 				</Dropdown>
 			) : (
-				<div id="displayCard" onClick={() => handleClick(data.type, data.id)}>
+				<div id="displayCard">
 					<img
 						src={data.type === "folder" ? folder : file}
 						alt="file"
@@ -163,6 +217,19 @@ export default function DisplayCard({ data }) {
 					placeholder="Enter the Project Name..."
 					onChange={(event) => setNewProjectName(event.target.value)}
 					value={newProjectName}
+				/>
+			</Modal>
+			<Modal
+				title="Update project name"
+				open={isModalRenameVisible}
+				onOk={() => projectRenameUpload(data.id)}
+				onCancel={handleModalRenameCancel}
+			>
+				<Input
+					placeholder="Enter New Project Name..."
+					onChange={(event) => setUploadedProjectName(event.target.value)}
+					value={uploadedProjectName}
+					// value={foundProject.name}
 				/>
 			</Modal>
 		</>
