@@ -29,8 +29,6 @@ export const StateContext = ({ children }) => {
 
 	const [allItems, setAllItems] = useState([...dirs, ...projects]);
 
-	// "6affab85-552e-49ec-90cd-78bc65d2ffa1"
-
 	let filterDirs;
 	let filterProjects;
 
@@ -61,13 +59,17 @@ export const StateContext = ({ children }) => {
 		toast.success("Success! New project added to the list");
 	};
 
-	const onRemove = (id) => {
+	const onRemove = (id, type) => {
 		// const updateDirs = dirs.filter((item) => item.id !== id);
 		// setDirs(updateDirs);
+		if (type === "folder") {
+			setDirs((prevState) => prevState.filter((item) => item.id !== id));
+			console.log("🚀 ~ file: StateContext.js:103 ~ onRemove ~ dirs:", dirs);
+		}
+		if (type === "project") {
+			setProjects((prevState) => prevState.filter((item) => item.id !== id));
+		}
 
-		setDirs((prevState) => prevState.filter((item) => item.id !== id));
-
-		console.log("🚀 ~ file: StateContext.js:103 ~ onRemove ~ dirs:", dirs);
 		// setAllItems(updateItems);
 
 		setAllItems([...dirs, ...projects].filter((item) => item.id !== id));
