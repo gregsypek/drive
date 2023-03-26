@@ -10,6 +10,10 @@ export const StateContext = ({ children }) => {
 	const [filteredItems, setFilteredItems] = useState([]);
 	const [currentFolderId, setCurrentFolderId] = useState(null);
 	const [currentItemName, setcurrentItemName] = useState(null);
+	const [transferValue, setTransferValue] = useState({
+		moveInto: "",
+	});
+
 	const [dirs, setDirs] = useState(
 		dataDirs.dirs.map((item) => ({
 			id: item.id,
@@ -18,6 +22,7 @@ export const StateContext = ({ children }) => {
 			folderId: item.parentDirId,
 		}))
 	);
+
 	const [projects, setProjects] = useState(
 		dataProjects.projects.map((project) => ({
 			id: project.id,
@@ -126,12 +131,15 @@ export const StateContext = ({ children }) => {
 				setSideList,
 				onAdd,
 				setDirs,
+				projects,
 				setProjects,
 				currentItemName,
 				setcurrentItemName,
 				dirs,
 				onRemove,
 				createSideList,
+				transferValue,
+				setTransferValue,
 			}}
 		>
 			{children}

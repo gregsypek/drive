@@ -1,7 +1,9 @@
 import React from "react";
 import "../css/DisplayContainer.css";
+import "../css/SideList.css";
 
 import { Dropdown } from "antd";
+
 import { useState } from "react";
 import folder from "../pics/folder.png";
 import file from "../pics/blue-file.png";
@@ -10,23 +12,49 @@ import {
 	DeleteOutlined,
 	ExclamationCircleFilled,
 	EditOutlined,
+	InteractionOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-hot-toast";
 import { Modal, Input } from "antd";
 import { useStateContext } from "../context/StateContext";
+import ListItem from "./ListItem";
+import TransferItem from "./TransferItem";
+
 const DisplayProject = ({ data }) => {
+	// console.log("🚀 ~ file: DisplayProject.js:39 ~ DisplayProject ~ data:", data);
 	const { type, id, itemText } = data;
-	const { setAllItems, setProjects, onRemove } = useStateContext();
+	const {
+		setAllItems,
+		setProjects,
+		onRemove,
+		projects,
+		allItems,
+		sideList,
+		transferValue,
+		setTransferValue,
+	} = useStateContext();
+	// console.log(
+	// 	"🚀 ~ file: DisplayProject.js:42 ~ DisplayProject ~ projects:",
+	// 	projects
+	// );
 	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
+	const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
 	const [uploadedProjectName, setUploadedProjectName] = useState("");
+
 	const { confirm } = Modal;
 
 	const showModalRename = () => {
 		setIsModalRenameVisible(true);
 	};
+	const showModalMove = () => {
+		setIsModalMoveVisible(true);
+	};
 
 	const handleModalRenameCancel = () => {
 		setIsModalRenameVisible(false);
+	};
+	const handleModalMoveCancel = () => {
+		setIsModalMoveVisible(false);
 	};
 
 	const showDeleteConfirm = () => {
@@ -56,6 +84,11 @@ const DisplayProject = ({ data }) => {
 			key: "2",
 			icon: <EditOutlined />,
 		},
+		{
+			label: "Move",
+			key: "3",
+			icon: <InteractionOutlined />,
+		},
 	];
 
 	const onClick = ({ key }) => {
@@ -64,6 +97,9 @@ const DisplayProject = ({ data }) => {
 		}
 		if (key === "2") {
 			showModalRename();
+		}
+		if (key === "3") {
+			showModalMove();
 		}
 	};
 
@@ -100,6 +136,10 @@ const DisplayProject = ({ data }) => {
 			return;
 		}
 	};
+	const projectMoveUpload = (id, type) => {
+		toast.success(` ${id}, ${type}, ${transferValue.moveInto}`);
+	};
+
 	return (
 		<>
 			<Dropdown
@@ -130,6 +170,24 @@ const DisplayProject = ({ data }) => {
 					onChange={(event) => setUploadedProjectName(event.target.value)}
 					defaultValue={itemText}
 				/>
+			</Modal>
+			<Modal
+				title="Move into..."
+				open={isModalMoveVisible}
+				onOk={() => projectMoveUpload(data.id, type)}
+				onCancel={handleModalMoveCancel}
+			>
+				<div id="sideListOpt">
+					<ul className="tree">
+						{sideList.map((item, index) => (
+							<TransferItem
+								item={item}
+								level={item.level !== undefined}
+								key={item.itemText + index}
+							></TransferItem>
+						))}
+					</ul>
+				</div>
 			</Modal>
 		</>
 	);

@@ -1,23 +1,22 @@
 #sideList {
-  height: calc(100vh - 115px);
-  width: 420px;
-  padding: 20px 10px;
-
+	height: calc(100vh - 115px);
+	width: 420px;
+	padding: 20px 10px;
 }
 
 #linkBtn {
-  background-color: transparent;
-  width: 140px;
-  display: flex;
-  border: none;
-  align-items: center;
-  cursor: pointer;
-  height: 50px;
-  border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  justify-content: center;
-  margin-inline: 20px;
+	background-color: transparent;
+	width: 140px;
+	display: flex;
+	border: none;
+	align-items: center;
+	cursor: pointer;
+	height: 50px;
+	border-radius: 5px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+		rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+	justify-content: center;
+	margin-inline: 20px;
 }
 
 /* #linkBtn img {
@@ -25,87 +24,103 @@
 } */
 
 #linkBtn p {
-  color: black;
-  font-size: 15px;
-  padding: 10px;
+	color: black;
+	font-size: 15px;
+	padding: 10px;
 }
 
 #linkBtn:hover {
-  transition: 0.3s;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
-    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+	transition: 0.3s;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+		rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
 #sideListOpt {
-  margin: 15px 0px;
-  padding: 35px ;
-
+	margin: 15px 0px;
+	padding: 35px;
 }
 ul > li {
-  margin-left: 20px;
+	margin-left: 20px;
+}
+summary:hover {
+	background-color: whitesmoke;
+}
+li.project:hover {
+	background-color: whitesmoke;
+}
+li.folder:hover {
+	background-color: whitesmoke;
+}
+li.folder {
+	position: relative;
+}
+input[type="radio"] {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+summary + ul > li:hover {
+	background-color: whitesmoke;
 }
 ul {
-  list-style: none;
+	list-style: none;
 }
 #sideListOpt li {
-  padding-block: 0.5em;
+	padding-block: 0.5em;
 }
 #sideListOpt li:hover {
-  cursor:pointer;
-  /* background-color: whitesmoke; */
+	cursor: pointer;
+	/* background-color: whitesmoke; */
 }
 #sideListOpt li.folder {
-  list-style-image: url('../pics/folder.svg');
-
+	list-style-image: url("../pics/folder.svg");
 }
 #sideListOpt li.project {
-  list-style-image: url('../pics/file.svg');
-
+	list-style-image: url("../pics/file.svg");
 }
 
 .sideListOptions {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 10px 5px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	padding: 10px 5px;
 }
 
-
 .sideListOptions:hover {
-  transition: 0.3s;
-  background-color: whitesmoke;
+	transition: 0.3s;
+	background-color: whitesmoke;
 }
 
 .sideListOptions img {
-  height: 20px;
-  padding: 0 5px;
+	height: 20px;
+	padding: 0 5px;
 }
 .sideListOptions img:first-of-type {
-  padding: 0 15px;
+	padding: 0 15px;
 }
 /* three-dots icon */
 .sideListOptions img:last-of-type {
-  margin-left: auto;
+	margin-left: auto;
 }
 .sideListOptions img:last-of-type:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .sideListOptions h3 {
-  color: #503e3e;
-  font-size: 14px;
-  padding: 0 10px;
+	color: #503e3e;
+	font-size: 14px;
+	padding: 0 10px;
 }
 
 .activeSideOpt {
-  background-color: rgb(227, 239, 255);
+	background-color: rgb(227, 239, 255);
 }
 
 .activeSideOpt h3 {
-  color: blue;
-  font-weight: bold;
+	color: blue;
+	font-weight: bold;
 }
 .empty-list {
-  text-align: center;
-  padding: 10px;
+	text-align: center;
+	padding: 10px;
 }

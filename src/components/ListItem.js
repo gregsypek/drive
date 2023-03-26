@@ -47,7 +47,7 @@ const ListItem = ({ item, children, level }) => {
 									{item?.level && (
 										<ul>
 											{item.level.map((item) => (
-												<LastItem item={item} 	key={item.itemText + index}/>
+												<LastItem item={item} key={item.itemText + index} />
 											))}
 										</ul>
 									)}
@@ -63,7 +63,9 @@ const ListItem = ({ item, children, level }) => {
 						handleClick(item.type, item.id);
 					}}
 					className={item.type === "folder" ? "folder" : "project"}
-					style={{ marginLeft: 10 }}
+					style={{
+						marginLeft: 10,
+					}}
 				>
 					{item.itemText}
 

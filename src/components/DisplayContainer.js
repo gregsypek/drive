@@ -47,7 +47,6 @@ export default function DisplayContainer() {
 
 	const projectAddUpload = () => {
 		if (newProjectName.length > 0) {
-
 			onAdd({
 				id: nanoid(),
 				type: value === 1 ? "project" : "folder",
@@ -63,7 +62,6 @@ export default function DisplayContainer() {
 			setIsModalVisible(false);
 			return;
 		}
-	
 	};
 
 	useEffect(() => {
@@ -80,7 +78,7 @@ export default function DisplayContainer() {
 							<p onClick={showModalAdd}>Add New </p>
 						</button>
 					)}
-				</div>	
+				</div>
 				<div id="contentDisplayer">
 					{sortAndFilter(filteredItems).map((item, index) => (
 						<DisplayCard data={item} key={index}>
