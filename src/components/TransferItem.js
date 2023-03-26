@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "../css/SideList.css";
-import LastItem from "./LastItem";
-import { toast } from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
 
 const TransferItem = ({ item, children, level }) => {
-	const { filterCurrentDisplayItems, transferValue, setTransferValue } =
+	const {  transferValue, setTransferValue } =
 		useStateContext();
 
-	console.log(
-		"🚀 ~ file: TransferItem.js:14 ~ TransferItem ~ moveInto:",
-		transferValue.moveInto
-	);
 
 	const handleChange = (event) => {
-		const { name, value, defaultValue } = event.target;
-		console.log(
-			"🚀 ~ file: TransferItem.js:17 ~ handleChange ~ name:",
-			defaultValue
-		);
+		const { name,  defaultValue } = event.target;
+
 		setTransferValue((prevState) => ({
 			...prevState,
 			[name]: defaultValue,
@@ -56,10 +47,10 @@ const TransferItem = ({ item, children, level }) => {
 					{item.type === "folder" && (
 						<input
 							type="radio"
-							id={item.itemText}
+							id={item.id}
 							name="moveInto"
-							value={item.itemText}
-							checked={transferValue.moveInto === item.itemText}
+							value={item.id}
+							checked={transferValue.moveInto === item.id}
 							onChange={handleChange}
 						/>
 					)}
@@ -77,10 +68,10 @@ const TransferItem = ({ item, children, level }) => {
 						{item.type === "folder" && (
 							<input
 								type="radio"
-								id={item.itemText}
+								id={item.id}
 								name="moveInto"
-								value={item.itemText}
-								checked={transferValue.moveInto === item.itemText}
+								value={item.id}
+								checked={transferValue.moveInto === item.id}
 								onChange={handleChange}
 							/>
 						)}

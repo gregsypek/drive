@@ -27,20 +27,16 @@ const DisplayProject = ({ data }) => {
 		setAllItems,
 		setProjects,
 		onRemove,
-		projects,
+		setDirs,
 		allItems,
 		sideList,
 		transferValue,
-		setTransferValue,
+		createSideList,
 	} = useStateContext();
-	// console.log(
-	// 	"🚀 ~ file: DisplayProject.js:42 ~ DisplayProject ~ projects:",
-	// 	projects
-	// );
+
 	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
 	const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
 	const [uploadedProjectName, setUploadedProjectName] = useState("");
-
 	const { confirm } = Modal;
 
 	const showModalRename = () => {
@@ -107,7 +103,7 @@ const DisplayProject = ({ data }) => {
 		console.log("uploadedProjectName", uploadedProjectName);
 
 		if (uploadedProjectName.length > 0) {
-			console.log("🚀 ~ file: DisplayCard.js:122 ~ idd ~ idd:", id);
+			// console.log("🚀 ~ file: DisplayCard.js:122 ~ idd ~ idd:", id);
 
 			setAllItems((prevState) => {
 				return prevState.map((item) => {
@@ -136,8 +132,42 @@ const DisplayProject = ({ data }) => {
 			return;
 		}
 	};
+
 	const projectMoveUpload = (id, type) => {
-		toast.success(` ${id}, ${type}, ${transferValue.moveInto}`);
+		const findOne = allItems.filter((project) => project.id === id);
+		const updatedFindOne = { ...findOne[0], folderId: transferValue.moveInto };
+
+		setProjects((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+		setDirs((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+
+		setAllItems((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+		// createSideList(allItems);
+
+		toast.success(
+			`Success! You have just moved ${updatedFindOne.itemText} element`
+		);
+		setIsModalMoveVisible(false);
 	};
 
 	return (

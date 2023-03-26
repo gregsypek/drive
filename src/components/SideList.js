@@ -17,6 +17,7 @@ export default function SideList() {
 		setDirs,
 		dirs,
 		createSideList,
+		filterCurrentDisplayItems,
 	} = useStateContext();
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
