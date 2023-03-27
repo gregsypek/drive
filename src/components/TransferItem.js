@@ -4,12 +4,10 @@ import "../css/SideList.css";
 import { useStateContext } from "../context/StateContext";
 
 const TransferItem = ({ item, children, level }) => {
-	const {  transferValue, setTransferValue } =
-		useStateContext();
-
+	const { transferValue, setTransferValue } = useStateContext();
 
 	const handleChange = (event) => {
-		const { name,  defaultValue } = event.target;
+		const { name, defaultValue } = event.target;
 
 		setTransferValue((prevState) => ({
 			...prevState,

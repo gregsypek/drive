@@ -32,6 +32,7 @@ const DisplayProject = ({ data }) => {
 		sideList,
 		transferValue,
 		createSideList,
+		setTransferValue,
 	} = useStateContext();
 
 	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
@@ -169,6 +170,14 @@ const DisplayProject = ({ data }) => {
 		);
 		setIsModalMoveVisible(false);
 	};
+	const handleChange2 = (event) => {
+		const { name } = event.target;
+
+		setTransferValue((prevState) => ({
+			...prevState,
+			[name]: null,
+		}));
+	};
 
 	return (
 		<>
@@ -209,6 +218,17 @@ const DisplayProject = ({ data }) => {
 			>
 				<div id="sideListOpt">
 					<ul className="tree">
+						<li className="folder" style={{ marginLeft: 10 }}>
+							/{" "}
+							<input
+								type="radio"
+								id=""
+								name="moveInto"
+								value=""
+								checked={transferValue.moveInto === null}
+								onChange={handleChange2}
+							/>
+						</li>
 						{sideList.map((item, index) => (
 							<TransferItem
 								item={item}

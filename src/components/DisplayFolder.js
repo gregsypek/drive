@@ -35,6 +35,7 @@ const DisplayFolder = ({ data }) => {
 		onRemove,
 		transferValue,
 		createSideList,
+		setTransferValue,
 	} = useStateContext();
 
 	const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
@@ -228,6 +229,15 @@ const DisplayFolder = ({ data }) => {
 		);
 		setIsModalMoveVisible(false);
 	};
+
+	const handleChange2 = (event) => {
+		const { name } = event.target;
+
+		setTransferValue((prevState) => ({
+			...prevState,
+			[name]: null,
+		}));
+	};
 	return (
 		<>
 			<Dropdown
@@ -279,6 +289,17 @@ const DisplayFolder = ({ data }) => {
 			>
 				<div id="sideListOpt">
 					<ul className="tree">
+						<li className="folder" style={{ marginLeft: 10 }}>
+							/
+							<input
+								type="radio"
+								id=""
+								name="moveInto"
+								value=""
+								checked={transferValue.moveInto === null}
+								onChange={handleChange2}
+							/>
+						</li>
 						{sideList.map((item, index) => (
 							<TransferItem
 								item={item}
