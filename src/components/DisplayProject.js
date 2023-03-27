@@ -202,7 +202,7 @@ const DisplayProject = ({ data }) => {
 				/>
 			</Modal>
 			<Modal
-				title="Move into..."
+				title={`'${itemText}' move into ...`}
 				open={isModalMoveVisible}
 				onOk={() => projectMoveUpload(data.id, type)}
 				onCancel={handleModalMoveCancel}

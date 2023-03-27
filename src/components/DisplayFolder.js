@@ -11,11 +11,15 @@ import {
 	FolderAddOutlined,
 	ExclamationCircleFilled,
 	EditOutlined,
+	InteractionOutlined,
 } from "@ant-design/icons";
 import { toast } from "react-hot-toast";
 import { Modal, Input } from "antd";
 import { nanoid } from "nanoid";
 import { useStateContext } from "../context/StateContext";
+import SideList from "./SideList";
+import TransferItem from "./TransferItem";
+
 const DisplayFolder = ({ data }) => {
 	const { type, id, itemText } = data;
 	const {
@@ -23,16 +27,26 @@ const DisplayFolder = ({ data }) => {
 		currentFolderId,
 		setCurrentFolderId,
 		setAllItems,
+		setProjects,
 		allItems,
+		sideList,
 		setcurrentItemName,
 		setDirs,
 		onRemove,
+		transferValue,
+		createSideList,
 	} = useStateContext();
+
+	const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [isModalRenameVisible, setIsModalRenameVisible] = useState(false);
 	const [uploadedProjectName, setUploadedProjectName] = useState("");
 	const [newProjectName, setNewProjectName] = useState("");
 	const { confirm } = Modal;
+
+	const showModalMove = () => {
+		setIsModalMoveVisible(true);
+	};
 
 	const handleClick = (type, id) => {
 		if (type === "folder") {
@@ -43,6 +57,9 @@ const DisplayFolder = ({ data }) => {
 	};
 	const showModalAdd = () => {
 		setIsModalVisible(true);
+	};
+	const handleModalMoveCancel = () => {
+		setIsModalMoveVisible(false);
 	};
 	const showModalRename = () => {
 		setIsModalRenameVisible(true);
@@ -93,6 +110,11 @@ const DisplayFolder = ({ data }) => {
 			key: "3",
 			icon: <EditOutlined />,
 		},
+		{
+			label: "Move",
+			key: "4",
+			icon: <InteractionOutlined />,
+		},
 	];
 
 	const onClick = ({ key }) => {
@@ -104,6 +126,9 @@ const DisplayFolder = ({ data }) => {
 		}
 		if (key === "3") {
 			showModalRename();
+		}
+		if (key === "4") {
+			showModalMove();
 		}
 	};
 	const projectAddUpload = () => {
@@ -163,6 +188,46 @@ const DisplayFolder = ({ data }) => {
 			return;
 		}
 	};
+
+	const projectMoveUpload = (id, type) => {
+		const findOne = allItems.filter((project) => project.id === id);
+		const updatedFindOne = {
+			...findOne[0],
+			folderId: transferValue.moveInto,
+		};
+
+		setProjects((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+		setDirs((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+
+		setAllItems((prevState) => {
+			return prevState.map((item) => {
+				if (item.id === id) {
+					return { ...item, folderId: transferValue.moveInto };
+				}
+				return item;
+			});
+		});
+		createSideList(allItems);
+
+		toast.success(
+			`Success! You have just moved ${updatedFindOne.itemText} element`
+		);
+		setIsModalMoveVisible(false);
+	};
 	return (
 		<>
 			<Dropdown
@@ -205,6 +270,24 @@ const DisplayFolder = ({ data }) => {
 					onChange={(event) => setUploadedProjectName(event.target.value)}
 					defaultValue={itemText}
 				/>
+			</Modal>
+			<Modal
+				title={`'${itemText}' move into ...`}
+				open={isModalMoveVisible}
+				onOk={() => projectMoveUpload(data.id, type)}
+				onCancel={handleModalMoveCancel}
+			>
+				<div id="sideListOpt">
+					<ul className="tree">
+						{sideList.map((item, index) => (
+							<TransferItem
+								item={item}
+								level={item.level !== undefined}
+								key={item.itemText + index}
+							></TransferItem>
+						))}
+					</ul>
+				</div>
 			</Modal>
 		</>
 	);
